@@ -1,0 +1,109 @@
+quranic-kuttab/
+├── prisma/
+│   └── schema.prisma
+├── public/
+│   ├── icon-192.png
+│   ├── icon-512.png
+│   └── manifest.json
+├── src/
+│   ├── app/
+│   │   ├── (auth)/
+│   │   │   ├── login/
+│   │   │   │   └── page.tsx
+│   │   │   └── layout.tsx
+│   │   ├── (dashboard)/
+│   │   │   ├── admin/
+│   │   │   │   ├── page.tsx                 # لوحة تحكم المشرف
+│   │   │   │   ├── students/
+│   │   │   │   │   ├── page.tsx
+│   │   │   │   │   └── [id]/
+│   │   │   │   │       └── page.tsx
+│   │   │   │   ├── teachers/
+│   │   │   │   │   ├── page.tsx
+│   │   │   │   │   └── [id]/
+│   │   │   │   │       └── page.tsx
+│   │   │   │   ├── circles/
+│   │   │   │   │   ├── page.tsx
+│   │   │   │   │   └── [id]/
+│   │   │   │   │       └── page.tsx
+│   │   │   │   ├── daily-data/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── settings/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── about/
+│   │   │   │       └── page.tsx
+│   │   │   ├── teacher/
+│   │   │   │   ├── page.tsx                 # لوحة المعلم
+│   │   │   │   ├── my-circles/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── my-students/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── daily-log/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── settings/
+│   │   │   │       └── page.tsx
+│   │   │   ├── layout.tsx                   # تخطيط مشترك مع شريط التنقل
+│   │   │   └── page.tsx                     # إعادة توجيه حسب الدور
+│   │   ├── api/
+│   │   │   ├── auth/
+│   │   │   │   ├── login/
+│   │   │   │   │   └── route.ts
+│   │   │   │   └── me/
+│   │   │   │       └── route.ts
+│   │   │   ├── admin/
+│   │   │   │   ├── students/
+│   │   │   │   │   ├── route.ts
+│   │   │   │   │   └── [id]/
+│   │   │   │   │       └── route.ts
+│   │   │   │   ├── teachers/
+│   │   │   │   │   ├── route.ts
+│   │   │   │   │   └── [id]/
+│   │   │   │   │       └── route.ts
+│   │   │   │   ├── circles/
+│   │   │   │   │   ├── route.ts
+│   │   │   │   │   └── [id]/
+│   │   │   │   │       └── route.ts
+│   │   │   │   └── daily-records/
+│   │   │   │       └── route.ts
+│   │   │   ├── teacher/
+│   │   │   │   ├── daily-log/
+│   │   │   │   │   └── route.ts
+│   │   │   │   └── students/
+│   │   │   │       └── route.ts
+│   │   │   └── whatsapp/
+│   │   │       └── route.ts
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── components/
+│   │   ├── ui/
+│   │   │   ├── Button.tsx
+│   │   │   ├── Card.tsx
+│   │   │   ├── Input.tsx
+│   │   │   ├── Select.tsx
+│   │   │   ├── Switch.tsx
+│   │   │   └── ...
+│   │   ├── admin/
+│   │   │   ├── StatsCards.tsx
+│   │   │   ├── StudentTable.tsx
+│   │   │   └── ...
+│   │   ├── teacher/
+│   │   │   ├── DailyLogForm.tsx
+│   │   │   └── ...
+│   │   └── shared/
+│   │       ├── Navbar.tsx
+│   │       ├── BottomNav.tsx
+│   │       └── ThemeToggle.tsx
+│   ├── lib/
+│   │   ├── prisma.ts
+│   │   ├── auth.ts               # دوال JWT
+│   │   ├── middleware.ts         # حماية الصلاحيات
+│   │   └── utils.ts
+│   └── types/
+│       └── index.ts
+├── .env
+├── next.config.js
+├── package.json
+├── tailwind.config.js
+├── postcss.config.js
+└── tsconfig.json

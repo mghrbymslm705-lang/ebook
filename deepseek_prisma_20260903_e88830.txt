@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  fullName      String
+  username      String    @unique
+  password      String    // مشفرة
+  role          Role      @default(teacher)
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  teacher       Teacher?
+  // relation to daily records? (optional)
+}
+
+enum Role {
+  supervisor
+  teacher
+}
+
+model Teacher {
+  id            String    @id @default(cuid())
+  userId        String    @unique
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fullName      String    // يمكن أن يكون نفس اسم المستخدم أو مختلف
+  bio           String?
+  circles       Circle[]
+  dailyRecords  DailyRecord[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Circle {
+  id            String    @id @default(cuid())
+  name          String
+  teacherId     String
+  teacher       Teacher   @relation(fields: [teacherId], references: [id], onDelete: Restrict)
+  students      Student[]
+  dailyRecords  DailyRecord[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Student {
+  id            String    @id @default(cuid())
+  fullName      String
+  circleId      String
+  circle        Circle    @relation(fields: [circleId], references: [id], onDelete: Cascade)
+  enrollmentDate DateTime @default(now())
+  notes         String?
+  dailyRecords  DailyRecord[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model DailyRecord {
+  id            String    @id @default(cuid())
+  studentId     String
+  student       Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  teacherId     String
+  teacher       Teacher   @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  circleId      String
+  circle        Circle    @relation(fields: [circleId], references: [id], onDelete: Cascade)
+  date          DateTime  @default(now())    // تاريخ اليوم
+  // حالات التسميع
+  recitation    RecitationStatus @default(not_recited)
+  review        ReviewStatus     @default(not_reviewed)
+  attendance    AttendanceStatus @default(not_on_time)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+enum RecitationStatus {
+  recited
+  not_recited
+}
+
+enum ReviewStatus {
+  reviewed
+  not_reviewed
+}
+
+enum AttendanceStatus {
+  on_time
+  not_on_time
+}

@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الدليل الإرشادي لكتّاب القرآن الكريم الداخلي</title>
+<meta name="theme-color" content="#1a365d">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231a365d' width='100' height='100' rx='20'/><text x='50' y='58' font-size='45' text-anchor='middle' fill='white'>📕</text></svg>">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #f8f6f0;
+  --bg2: #ffffff;
+  --bg3: #e8e4da;
+  --text: #1a1a1a;
+  --text2: #444;
+  --primary: #1a365d;
+  --primary-light: #2c5282;
+  --accent: #c5a55a;
+  --accent2: #d4af61;
+  --sidebar-bg: #1a365d;
+  --sidebar-text: #e2e8f0;
+  --sidebar-hover: #2c5282;
+  --shadow: rgba(0,0,0,0.1);
+  --border: #d4cfc4;
+  --toolbar-bg: #1a365d;
+}
+
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --bg2: #1e293b;
+  --bg3: #1a2332;
+  --text: #e2e8f0;
+  --text2: #94a3b8;
+  --primary: #3b82f6;
+  --primary-light: #60a5fa;
+  --accent: #f59e0b;
+  --accent2: #fbbf24;
+  --sidebar-bg: #0c1222;
+  --sidebar-text: #94a3b8;
+  --sidebar-hover: #1e293b;
+  --shadow: rgba(0,0,0,0.4);
+  --border: #334155;
+  --toolbar-bg: #0c1222;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Naskh Arabic', 'Amiri', serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.9;
+  overflow: hidden;
+  height: 100vh;
+  transition: background 0.4s, color 0.4s;
+}
+
+/* ===== TOP TOOLBAR ===== */
+.toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  background: var(--toolbar-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 1000;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toolbar-title {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 400px;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tb-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s;
+  position: relative;
+}
+.tb-btn:hover { background: rgba(255,255,255,0.22); transform: scale(1.08); }
+.tb-btn:active { transform: scale(0.95); }
+.tb-btn .tooltip {
+  position: absolute;
+  bottom: -32px;
+  right: 50%;
+  transform: translateX(50%);
+  background: #000;
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 9999;
+}
+.tb-btn:hover .tooltip { opacity: 1; }
+
+.menu-btn { display: flex !important; }
+
+/* ===== SIDEBAR ===== */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+.sidebar-overlay.active { opacity: 1; visibility: visible; }
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 310px;
+  height: 100%;
+  background: var(--sidebar-bg);
+  z-index: 2001;
+  transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.sidebar.active { right: 0; }
+
+.sidebar-header {
+  padding: 18px 16px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.sidebar-header h2 {
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 4px;
+}
+.sidebar-header p {
+  color: rgba(255,255,255,0.4);
+  font-size: 11px;
+  text-align: center;
+}
+
+.sidebar-search {
+  padding: 10px 14px;
+}
+.sidebar-search input {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  text-align: right;
+}
+.sidebar-search input::placeholder { color: rgba(255,255,255,0.3); }
+.sidebar-search input:focus { border-color: var(--accent); }
+
+.sidebar-toc {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.15) transparent;
+}
+.sidebar-toc::-webkit-scrollbar { width: 5px; }
+.sidebar-toc::-webkit-scrollbar-track { background: transparent; }
+.sidebar-toc::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+
+.toc-item {
+  padding: 9px 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-right: 3px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.toc-item:hover { background: var(--sidebar-hover); }
+.toc-item.active {
+  background: rgba(197,165,90,0.12);
+  border-right-color: var(--accent);
+}
+.toc-item .toc-num {
+  color: var(--accent);
+  font-size: 11px;
+  min-width: 22px;
+  text-align: center;
+  font-weight: 700;
+}
+.toc-item .toc-label {
+  color: var(--sidebar-text);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.toc-item.sub { padding-right: 38px; }
+.toc-item.sub .toc-label { font-size: 12.5px; color: rgba(255,255,255,0.55); }
+
+.sidebar-footer {
+  padding: 14px 16px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  text-align: center;
+}
+.sidebar-footer a {
+  color: var(--accent);
+  font-size: 12px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.sidebar-footer a:hover { text-decoration: underline; }
+
+/* ===== MAIN CONTENT ===== */
+.main {
+  margin-top: 52px;
+  height: calc(100vh - 52px);
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+}
+
+.content-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px 24px 80px;
+}
+
+.page {
+  margin-bottom: 40px;
+  scroll-snap-align: start;
+}
+
+.section-title {
+  font-family: 'Amiri', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid var(--accent);
+  line-height: 1.6;
+}
+
+.sub-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--primary-light);
+  margin: 22px 0 10px;
+  line-height: 1.6;
+}
+
+.sub-sub-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--accent2);
+  margin: 16px 0 8px;
+  line-height: 1.6;
+}
+
+p {
+  margin-bottom: 12px;
+  text-align: justify;
+  font-size: 16.5px;
+  color: var(--text);
+}
+
+.highlight-box {
+  background: var(--bg3);
+  border-right: 4px solid var(--accent);
+  padding: 16px 20px;
+  border-radius: 0 10px 10px 0;
+  margin: 16px 0;
+  font-style: italic;
+  color: var(--text2);
+}
+
+.highlight-box strong { color: var(--primary); }
+
+ul, ol {
+  margin: 10px 0 14px 0;
+  padding-right: 22px;
+}
+
+li {
+  margin-bottom: 6px;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 14px;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: center;
+}
+
+th {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+td { background: var(--bg2); }
+
+.basmala {
+  text-align: center;
+  font-size: 28px;
+  font-family: 'Amiri', serif;
+  color: var(--primary);
+  margin: 20px 0;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--bg3), var(--bg2));
+  border-radius: 12px;
+}
+
+.page-num {
+  text-align: center;
+  color: var(--text2);
+  font-size: 12px;
+  margin-top: 20px;
+  opacity: 0.6;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
+}
+
+/* ===== ZOOM CLASSES ===== */
+.zoom-100 { font-size: 100%; }
+.zoom-110 { font-size: 110%; }
+.zoom-125 { font-size: 125%; }
+.zoom-150 { font-size: 150%; }
+
+/* ===== FLOATING BUTTONS ===== */
+.floating-btns {
+  position: fixed;
+  left: 16px;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 500;
+}
+
+.float-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  border: none;
+  background: var(--primary);
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(26,54,93,0.4);
+  transition: all 0.3s;
+  position: relative;
+}
+.float-btn:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(26,54,93,0.5); }
+.float-btn:active { transform: scale(0.95); }
+
+.float-btn.whatsapp { background: #25D366; }
+.float-btn.whatsapp:hover { background: #1da851; }
+.float-btn.install { background: var(--accent); }
+.float-btn.install:hover { background: var(--accent2); }
+.float-btn.scroll-top { background: #6b7280; display: none; }
+.float-btn.scroll-top.visible { display: flex; }
+
+.float-btn .tooltip-float {
+  position: absolute;
+  left: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #000;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.float-btn:hover .tooltip-float { opacity: 1; }
+
+/* ===== ZOOM POPUP ===== */
+.zoom-popup {
+  position: fixed;
+  left: 80px;
+  bottom: 20px;
+  background: var(--bg2);
+  border-radius: 14px;
+  box-shadow: 0 8px 30px var(--shadow);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 501;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s;
+}
+.zoom-popup.active { opacity: 1; visibility: visible; transform: translateY(0); }
+
+.zoom-popup button {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  color: var(--text);
+}
+.zoom-popup button:hover { background: var(--bg3); }
+.zoom-popup button.active { background: var(--accent); color: #fff; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .sidebar { width: 280px; }
+  .menu-btn { display: flex !important; }
+  .toolbar-title { max-width: 180px; font-size: 13px; }
+  .content-wrapper { padding: 20px 16px 80px; }
+  .section-title { font-size: 20px; }
+  .floating-btns { left: 12px; bottom: 16px; }
+  .float-btn { width: 48px; height: 48px; font-size: 20px; border-radius: 14px; }
+}
+
+/* ===== PRINT ===== */
+@media print {
+  .toolbar, .sidebar, .sidebar-overlay, .floating-btns, .zoom-popup { display: none !important; }
+  .main { margin-top: 0; height: auto; overflow: visible; }
+  .content-wrapper { max-width: 100%; padding: 0; }
+}
+
+/* ===== SCROLLBAR ===== */
+.main::-webkit-scrollbar { width: 7px; }
+.main::-webkit-scrollbar-track { background: var(--bg); }
+.main::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+</style>
+</head>
+<body class="zoom-100">
+
+<!-- TOP TOOLBAR -->
+<div class="toolbar">
+  <div class="toolbar-right">
+    <button class="tb-btn menu-btn" onclick="toggleSidebar()" aria-label="الفهرس">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h14M3 10h14M3 15h14"/></svg>
+      <span class="tooltip">الفهرس</span>
+    </button>
+    <div class="toolbar-title">📕 الدليل الإرشادي لكتّاب القرآن الكريم الداخلي</div>
+  </div>
+  <div class="toolbar-left">
+    <button class="tb-btn" onclick="zoomOut()" aria-label="تصغير">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="4" y1="9" x2="14" y2="9"/></svg>
+      <span class="tooltip">تصغير</span>
+    </button>
+    <button class="tb-btn" id="zoomLevel" onclick="toggleZoomPopup()" aria-label="مستوى التكبير">
+      100%
+      <span class="tooltip">ضبط الحجم</span>
+    </button>
+    <button class="tb-btn" onclick="zoomIn()" aria-label="تكبير">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="9" y1="4" x2="9" y2="14"/><line x1="4" y1="9" x2="14" y2="9"/></svg>
+      <span class="tooltip">تكبير</span>
+    </button>
+    <button class="tb-btn" onclick="toggleTheme()" id="themeBtn" aria-label="الوضع الليلي">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 2a7 7 0 100 14 5.5 5.5 0 010-14z"/></svg>
+      <span class="tooltip">الوضع الليلي</span>
+    </button>
+    <button class="tb-btn" onclick="shareApp()" aria-label="مشاركة">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="14" cy="4" r="2.5"/><circle cx="4" cy="9" r="2.5"/><circle cx="14" cy="14" r="2.5"/><path d="M6.3 7.8l5.4 2.9M6.3 10.2l5.4-2.9"/></svg>
+      <span class="tooltip">مشاركة</span>
+    </button>
+  </div>
+</div>
+
+<!-- ZOOM POPUP -->
+<div class="zoom-popup" id="zoomPopup">
+  <button onclick="setZoom(100)" data-z="100">100%</button>
+  <button onclick="setZoom(110)" data-z="110">110%</button>
+  <button onclick="setZoom(125)" data-z="125">125%</button>
+  <button onclick="setZoom(150)" data-z="150">150%</button>
+</div>
+
+<!-- SIDEBAR OVERLAY -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h2>📖 فهرس المحتويات</h2>
+    <p>الدليل الإرشادي</p>
+  </div>
+  <div class="sidebar-search">
+    <input type="text" id="tocSearch" placeholder="بحث في الفهرس..." oninput="filterToc(this.value)">
+  </div>
+  <div class="sidebar-toc" id="tocList">
+    <div class="toc-item active" onclick="goTo(0, this)">
+      <span class="toc-num">١</span>
+      <span class="toc-label">المقدمة</span>
+    </div>
+    <div class="toc-item" onclick="goTo(1, this)">
+      <span class="toc-num">٢</span>
+      <span class="toc-label">موقع الدليل في البناء المؤسسي</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(1, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">مقاصد الدليل ووظائفه الأساسية</span>
+    </div>
+    <div class="toc-item" onclick="goTo(2, this)">
+      <span class="toc-num">٣</span>
+      <span class="toc-label">تعريف كُتّاب القرآن الكريم الداخلي وخصائصه</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(2, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">أوّلاً: التعريف</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(2, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">ثانياً: خصائص الإقامة الداخلية</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(2, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">ثالثاً: الفئات المستفيدة</span>
+    </div>
+    <div class="toc-item" onclick="goTo(3, this)">
+      <span class="toc-num">٤</span>
+      <span class="toc-label">المرجعية العامة للكتّاب</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(3, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">أوّلاً: المرجعية الشرعية</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(3, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">ثانياً: المرجعية النظامية والرسمية</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(3, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">ثالثاً: المرجعية التربوية والتعليمية</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(3, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">رابعاً: المرجعية المؤسسية الداخلية</span>
+    </div>
+    <div class="toc-item" onclick="goTo(4, this)">
+      <span class="toc-num">٥</span>
+      <span class="toc-label">هُوية الكتّاب ورؤيته ورسالته</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(4, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">القيم والمبادئ الحاكمة</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(4, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">الأهداف العامة</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(4, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">مجالات العمل الأساسية</span>
+    </div>
+    <div class="toc-item" onclick="goTo(5, this)">
+      <span class="toc-num">٦</span>
+      <span class="toc-label">منظومة العمل والهيكل العام للكتّاب</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(5, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">أركان منظومة العمل ومسؤولياتها</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(5, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">المبادئ الحاكمة لمنظومة العمل</span>
+    </div>
+    <div class="toc-item" onclick="goTo(6, this)">
+      <span class="toc-num">٧</span>
+      <span class="toc-label">نظام التربية والسلوك والحياة الجماعية</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(6, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">المبادئ الأساسية للتربية</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(6, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">الآداب والنضباط والمسؤولية الشخصية</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(6, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">ضوابط الحياة الجماعية</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(6, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">سياسة التعامل مع المخالفات</span>
+    </div>
+    <div class="toc-item" onclick="goTo(7, this)">
+      <span class="toc-num">٨</span>
+      <span class="toc-label">البرنامج القرآني اليومي مع نماذج تتبع الطالب</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(7, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">إيضاح المصطلحات القرآنية</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(7, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">جدول المسار الزمني لليوم القرآني</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(7, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">نماذج تتبع الطالب والجداول المرفقة</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(7, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">جدول تتبع مراجعة الأحزاب الستين</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(7, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">التقارير الشهرية وبطاقة الطالب</span>
+    </div>
+    <div class="toc-item" onclick="goTo(8, this)">
+      <span class="toc-num">٩</span>
+      <span class="toc-label">نظام التقويم والمتابعة والإتقان</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(8, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">مفهوم التقويم ومعايير الإتقان</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(8, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">آليات وأدوات المتابعة والتقويم</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(8, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">خطة معالجة التعثر ودعم الطالب</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(8, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">التحصيل المتوسط للطالب</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(8, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">جدول الإجازات</span>
+    </div>
+    <div class="toc-item" onclick="goTo(9, this)">
+      <span class="toc-num">١٠</span>
+      <span class="toc-label">الأنشطة والبرامج الموازية</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(9, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">مجالات الأنشطة الموازية</span>
+    </div>
+    <div class="toc-item" onclick="goTo(10, this)">
+      <span class="toc-num">١١</span>
+      <span class="toc-label">نظام التغذية والإطعام</span>
+    </div>
+    <div class="toc-item" onclick="goTo(11, this)">
+      <span class="toc-num">١٢</span>
+      <span class="toc-label">العلاقة مع الأسرة والزيارات</span>
+    </div>
+    <div class="toc-item" onclick="goTo(12, this)">
+      <span class="toc-num">١٣</span>
+      <span class="toc-label">البرامج العلمية الموازية</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(12, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">مسارات البرامج العلمية</span>
+    </div>
+    <div class="toc-item" onclick="goTo(13, this)">
+      <span class="toc-num">١٤</span>
+      <span class="toc-label">الموارد البشرية داخل الكتّاب</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(13, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">معايير اختيار الكادر التربوي</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(13, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">التأهيل والتطوير المهني المستمر</span>
+    </div>
+    <div class="toc-item" onclick="goTo(14, this)">
+      <span class="toc-num">١٥</span>
+      <span class="toc-label">نظام التواصل والتوثيق</span>
+    </div>
+    <div class="toc-item" onclick="goTo(15, this)">
+      <span class="toc-num">١٦</span>
+      <span class="toc-label">الجودة والتطوير والتحسين المستمر</span>
+    </div>
+    <div class="toc-item" onclick="goTo(16, this)">
+      <span class="toc-num">١٧</span>
+      <span class="toc-label">السلامة والصحة داخل الكتّاب</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(16, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">الوقاية العامة وتأمين المرافق</span>
+    </div>
+    <div class="toc-item sub" onclick="goTo(16, this)">
+      <span class="toc-num"></span>
+      <span class="toc-label">الرعاية الصحية والتعامل مع الأمراض</span>
+    </div>
+    <div class="toc-item" onclick="goTo(17, this)">
+      <span class="toc-num">١٨</span>
+      <span class="toc-label">الإطار المرجعي العام للدليل</span>
+    </div>
+  </div>
+  <div class="sidebar-footer">
+    <a href="https://wa.me/212605706006" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      تواصل مع المشرف عبر واتساب
+    </a>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main" id="mainContent">
+  <div class="content-wrapper" id="contentWrapper">
+
+    <!-- SECTION 0: المقدمة -->
+    <div class="page" id="sec0">
+      <div class="basmala">بسم الله الرحمن الرحيم</div>
+      <div class="section-title">مقدمة الدليل الإرشادي</div>
+      <p>الحمدُ لله الذي نزّل القرآن ذكرى للعالمين، وجعل أهله خاصته وأولياءه المقربين، والصلاة والسلام على المبعوث رحمةً للعالمين، نبينا محمدٍ القائل: خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ، وعلى آله وصحبه الذين تلقَّوا التنزيل مشافهةً وعملًا، فرعوه حق رعايته، ومَن تبعهم بإحسان إلى يوم الدين.</p>
+      <p>أما بعد: فإنّ خدمة كتاب الله تعالى، والقيام على تربية ناشئة المسلمين في مَحاضن القرآن الكريم، من أجلّ القُرُبات وأعظم الأمانات التي تقتضي إحكام البناء، وتكامل الجهود، وحسن الرعاية والسياسة.</p>
+      <div class="highlight-box">
+        «وانطلاقًا من هذه الأمانة، يأتي هذا الدليل الإرشادي ليكون وثيقةً حاكمة وإطارًا تربويًّا وتنظيميًّا متكاملاً لـكُتَّابِ القرآنِ الكريم الداخلي؛ مستهدفًا توحيد المسار المنهجي، وضبط العمليات التعليمية والإدارية، ورعاية الحياة المشتركة للمتعلمين في بيئة إيوائية متكاملة.»
+      </div>
+      <p>وقد استصحب هذا الدليل خصوصية المحضن القرآني الداخلي؛ التي تجمع بين:</p>
+      <ol>
+        <li><strong>أصالة الطريقة القرآنية:</strong> من الاعتماد على كتابة اللوح والعرض، وتجويد الرسم والخط، وإتقان الضبط.</li>
+        <li><strong>فقه المالزمة والإيواء:</strong> من حيث رعاية الآداب المشتركة للطلبة في مبيتهم، ومطعمهم، وأوقات مذاكرتهم، وتهذيب سلوكهم؛ حيث يقوم الأستاذ المربي مقام الوالد في الشفقة والحرص.</li>
+        <li><strong>أدوات الإدارة الحديثة:</strong> من ضبط مسارات التوثيق والمتابعة، والتخطيط، وقياس الأثر التربوي، والتقويم المستمر.</li>
+      </ol>
+      <p>ولا يُعَدّ هذا الدليل نظامًا جامدًا أو منغلقًا، بل هو إطارٌ مرجعيٌّ حيٌّ يقبل التحيين والتطوير وفق ما تقتضيه المصلحة المعتبرة، والخبرات المتراكمة والمستجدات التربوية النافعة.</p>
+      <div class="page-num">— صفحة 1 —</div>
+    </div>
+
+    <!-- SECTION 1: موقع الدليل -->
+    <div class="page" id="sec1">
+      <div class="section-title">موقع الدليل في البناء المؤسسي</div>
+      <p>يحتل هذا الدليل موقعًا مركزيًّا في هيكل الكتّاب حيث يعد:</p>
+      <ul>
+        <li><strong>حلقة وصل:</strong> يربط بين الغايات الكبرى والرؤية العامة للكتّاب، وبين التطبيقات والإجراءات اليومية للعاملين والأستاذة والطلبة.</li>
+        <li><strong>إطار مفسّر وموجّه:</strong> يعمل الدليل بوصفه لائحة تنفيذية وتوجيهية شارحة لأنظمة الكتّاب؛ فهو لا يتعارض مع الأنظمة واللوائح المعتمدة من الجهة المشرفة، بل يُمكّن من تنزيلها عمليًّا بموضوعية وانضباط.</li>
+      </ul>
+      <div class="sub-title">مقاصد الدليل ووظائفه الأساسية</div>
+      <p>تتحدد الوظيفة التنفيذية والتربوية لهذا الدليل في تحقيق المقاصد الآتية:</p>
+      <ol>
+        <li><strong>توحيد الرؤية والمنهج:</strong> صياغة فهم مشترك بين المشرفين، والمقرئين، والمربين حول أهداف الكتّاب التربوية والتعليمية، ومنهجية التلقين والتحفيظ والسلوك.</li>
+        <li><strong>أداء الأمانة وضبط الصالحيات:</strong> تحديد الأدوار والمسؤوليات المنوطة بكل فرد في المنظومة (إدارة، وإقراءً، ورعايةً داخلية) بدقة تحسم التنازع وتمنع التقصير.</li>
+        <li><strong>حفظ استقرار المؤسسة:</strong> إرساء قواعد العمل المؤسسي الذي تستمر به مسيرة التحفيظ والإتقان بانتظام، دون أن ترتهن بالأشخاص أو تتأثر بتغيرهم.</li>
+        <li><strong>تنظيم الحياة اليومية للكتّاب الداخلي:</strong> ضبط برنامج الطالب المعيشي والقرآني (من البكور، وتلوة الأوراد، والملازمة، والمبيت، والآداب الجمعية)، بما يوفر بيئة إيمانية آمنة ومحفزة.</li>
+        <li><strong>توحيد مرجعية الفصل والقرار:</strong> توفير معايير واضحة للاحتكام إليها عند معالجة الحالات السلوكية، أو التعليمية، أو الإدارية الطارئة بالعدل والإنصاف.</li>
+        <li><strong>تجويد المخرجات وتوثيق الخبرة:</strong> تفعيل آليات التقويم والمتابعة المستمرة، وحفظ الممارسات القرآنية الرائدة ونقلها للأجيال اللاحقة.</li>
+      </ol>
+      <div class="page-num">— صفحة 2 —</div>
+    </div>
+
+    <!-- SECTION 2: التعريف بالكتّاب -->
+    <div class="page" id="sec2">
+      <div class="section-title">تعريف كُتّاب القرآن الكريم الداخلي وخصائصه</div>
+      <div class="sub-title">أوّلاً: التعريف</div>
+      <p><strong>كُتّابُ القرآنِ الكريم الداخلي:</strong> مَحْضَنٌ تربويٌّ وتعليميٌّ إيوائي، يقوم على ملازمة الناشئة ورعايتهم؛ مستهدفًا تحفيظ كتاب الله تعالى وتجويده، والتخلّق بأخالقه، عبر نظام تعليمي أصيل وبيئة معيشية منضبطة.</p>
+      <ul>
+        <li><strong>المنهج التعليمي:</strong> يرتكز على المشافهة، وحفظ اللوح، وتجويد الرسم والضبط، وإحكام المراجعة.</li>
+        <li><strong>الغاية التربوية:</strong> بناء شخصية قرآنية متوازنة؛ تجمع بين متانة الحفظ، وزكاة النفس، واستقامة الخلق، والانضباط والمسؤولية.</li>
+      </ul>
+      <div class="sub-title">ثانياً: خصائص الإقامة الداخلية</div>
+      <p>تستمد الإقامة الداخلية خصوصيتها من استمرار العملية التربوية على مدار اليوم، وتتحدد ملامحها فيما يلي:</p>
+      <ol>
+        <li><strong>شمولية الرعاية:</strong> تحويل تفاصيل اليوم وليله (المحافظة على الصلوات جماعةً، والأوراد، وآداب الطعام والمبيت ...) إلى ممارسة تربوية حية.</li>
+        <li><strong>جمع القلب وتفريغ الوقت:</strong> صيانة الطالب عن المشاغل، وتهيئة بيئة إيمانية تُعينه على سرعة التحصيل وإتمام الحفظ.</li>
+        <li><strong>التوازن الاجتماعي:</strong> ضبط نظام الزيارات والإجازات بما يحفظ برَّ الوالدين وصلة الرحم، دون الإخلال بانتظام المسار القرآني ومقتضيات التحصيل.</li>
+      </ol>
+      <div class="sub-title">ثالثاً: الفئات المستفيدة</div>
+      <p>تنتظم دائرة المستفيدين من الكتّاب في أربع فئات رئيسة:</p>
+      <ol>
+        <li><strong>طلبة الكتّاب (المستفيد الأصيل):</strong> الناشئة المستعدون بدنيًّا ونفسيًّا لمتطلبات الملازمة والإقامة والحياة الجماعية، المتدرجون في مدارج الحفظ والإتقان.</li>
+        <li><strong>أولياء الأمور:</strong> بصفتهم شركاء في التربية، وإسناد المسار التعليمي والسلوكي لأبنائهم.</li>
+        <li><strong>الهيئة التعليمية والإشرافية:</strong> بالاستناد إلى هذا الدليل كمرجع حاكم لسياسة الطالب، وأداء الأمانة في تقديم الخدمات المناسبة لهم.</li>
+        <li><strong>الجهة الراعية والمشرفة:</strong> بتوفير معايير منضبطة للمتابعة، والتقويم، والتطوير المستمر.</li>
+      </ol>
+      <div class="page-num">— صفحة 3-4 —</div>
+    </div>
+
+    <!-- SECTION 3: المرجعية العامة -->
+    <div class="page" id="sec3">
+      <div class="section-title">المرجعية العامة للكتّاب</div>
+      <p>يستند كُتّاب القرآن الكريم الداخلي في ضبط مساره التربوي والتعليمي والإداري إلى منظومة مرجعية متكاملة؛ تُدرج في أربع ركائز رئيسة:</p>
+      <div class="sub-title">أوّلاً: المرجعية الشرعية</div>
+      <p>وهي المرجعية العليا الحاكمة لجميع مسارات العمل؛ وتتمثل في:</p>
+      <ul>
+        <li>نصوص الكتاب والسنة النبوية، ومقاصد الشريعة في تعليم القرآن الكريم وتربية المتعلمين.</li>
+        <li>مراعاة أحكام التلاوة وآداب الإقراء التي جرى بها العمل.</li>
+      </ul>
+      <div class="sub-title">ثانياً: المرجعية النظامية والرسمية</div>
+      <p>وتشمل الأطر واللوائح المنظمة للتعليم العتيق والكتاتيب القرآنية الصادرة عن الجهات الرسمية وفي مقدمتها «دليل الكتاتيب القرآنية» الصادر عن وزارة الأوقاف والشؤون الإسلامية؛ باعتباره الإطار المعتمد للتنظيم والتأطير.</p>
+      <div class="sub-title">ثالثاً: المرجعية التربوية والتعليمية</div>
+      <p>وتجمع بين:</p>
+      <ul>
+        <li><strong>الأصالة:</strong> من خلال مراعاة منهجية الإقراء العتيقة المعتمدة على المشافهة، ورسم اللوح، والضبط، والتعاهد المستمر.</li>
+        <li><strong>المعاصرة:</strong> من خلال تحرّي القواعد التربوية الحديثة في مراعاة الفروق الفردية للناشئة، والتدرج التعليمي، ووسائل التقويم والتحفيز.</li>
+      </ul>
+      <div class="sub-title">رابعاً: المرجعية المؤسسية الداخلية</div>
+      <p>وتتمثل في:</p>
+      <ul>
+        <li>رؤية الكُتّاب، ورسالته، وأهدافه التربوية الخاصة.</li>
+        <li>اللوائح التنفيذية وقرارات إدارة الكتّاب المنبثقة عن هذا «الدليل المرجعي» المترجمة للمرجعيات العليا إلى إجراءات وممارسات يومية قابلة للمتابعة والتقويم.</li>
+      </ul>
+      <div class="highlight-box">تعمل هذه المرجعيات في اتساق وتكامل؛ بحيث تنبثق الإجراءات التنظيمية والتربوية من المرجعية الشرعية وتلتزم بالأطر النظامية، مع مراعاة خصوصية المحضن الداخلي في ضبط الإقامة والملازمة.</div>
+      <div class="page-num">— صفحة 5-6 —</div>
+    </div>
+
+    <!-- SECTION 4: هوية الكتّاب -->
+    <div class="page" id="sec4">
+      <div class="section-title">هُوية الكتّاب ورؤيته ورسالته</div>
+      <div class="sub-title">هُوية الكتّاب:</div>
+      <div class="highlight-box">
+        <strong>كُتّابُ القرآنِ الكريم الداخلي:</strong> مؤسسةٌ قرآنية تربوية إيوائية، تهدف إلى تحفيظ كتاب الله تعالى وتربية الناشئة على قيمه؛ عبر الجمع بين أصالة الطريقة القرآنية (التلقين، وحفظ اللوح، والمراجعة) والتربية السلوكية اليومية في بيئة جماعية منضبطة وآمنة.
+      </div>
+      <div class="sub-title">الرُّؤْيَة:</div>
+      <div class="highlight-box">«أن يكون الكُتّاب بيئةً قرآنيةً وتربويةً رائدة، تجمع بين أصالة التعليم وجودة الإدارة، لتخريج جيلٍ حافظٍ لكتاب الله، مستقيمِ السلوك، ونافعٍ لمجتمعه.»</div>
+      <div class="sub-title">الرِّسَالَة:</div>
+      <div class="highlight-box">«العناية بتعليم وتحفيظ القرآن الكريم وإتقانه، وبناء شخصية الطالب إيمانيًّا وخُلُقيًّا، من خلال بيئة إيوائية متكاملة وشراكة فاعلة مع الأسرة والمجتمع.»</div>
+      <div class="sub-title">الْقِيَمُ وَالْمَبَادِئُ الْحَاكِمَة:</div>
+      <ol>
+        <li><strong>تعظيم القرآن الكريم:</strong> بجعله المقصد الأول والأساس لجميع الأنشطة والمعاملات.</li>
+        <li><strong>الإخلاص والأمانة:</strong> باستشعار مراقبة الله تعالى في أداء الواجبات بصدق وإتقان.</li>
+        <li><strong>القدوة الحسنة:</strong> التزام القائمين على الكُتّاب بالسلوك المستقيم ليكونوا نموذجًا للطالب.</li>
+        <li><strong>الرحمة والرفق:</strong> مراعاة أعمار الطالب وقدراتهم، والجمع بين الحزم التربوي والشفقة.</li>
+        <li><strong>العدل والإنصاف:</strong> المساواة بين الطالب في المعاملة والتقييم، ومراعاة الفروق الفردية.</li>
+        <li><strong>الانضباط والإتقان:</strong> احترام الوقت والأنظمة، والسعي لأعلى درجات الجودة في الحفظ والسلوك.</li>
+        <li><strong>التطوير المستمر:</strong> تقويم العمل بانتظام، وتوثيق التجارب الناجحة، وتحسين الأداء.</li>
+      </ol>
+      <div class="page-num">— صفحة 7 —</div>
+    </div>
+
+    <!-- SECTION 5: منظومة العمل -->
+    <div class="page" id="sec5">
+      <div class="section-title">منظومة العمل والهيكل العام للكتّاب</div>
+      <p>يقوم الكتّاب على منظومة متكاملة تتوزع فيها الأدوار والمسؤوليات على خمسة أطراف رئيسة، تعمل بتنسيق وتكامل:</p>
+      <div class="sub-title">أوّلاً: أركان منظومة العمل ومسؤولياتها</div>
+
+      <div class="sub-sub-title">الجهة المشرفة (المرجعية المؤسسية العليا):</div>
+      <ul>
+        <li><strong>دورها:</strong> التوجيه العام، والرعاية المؤسسية، والمساندة الاستراتيجية.</li>
+        <li><strong>أبرز مهامها:</strong></li>
+      </ul>
+      <ul style="margin-right: 30px;">
+        <li>اعتماد اللائحة العامة، والخطط الكبرى، والمشاريع التطويرية.</li>
+        <li>تعيين وتكليف إدارة الكتّاب، وتفويض الصالحيات اللازمة لها.</li>
+        <li>توفير الدعم المالي والإداري لضمان استقرار واستمرارية العمل.</li>
+        <li>متابعة وتقييم الأداء العام للكتّاب، والفصل في القضايا الكبرى الخارجة عن صلاحيات الإدارة.</li>
+      </ul>
+
+      <div class="sub-sub-title">إدارة الكتّاب:</div>
+      <ul>
+        <li><strong>دورها:</strong> تسيير شؤون الكتّاب اليومية، وتطبيق اللوائح، وتحقيق أهداف المحضن الداخلي.</li>
+        <li><strong>أبرز مهامها:</strong></li>
+      </ul>
+      <ul style="margin-right: 30px;">
+        <li>تنظيم الجداول والبرامج التعليمية والتربوية والإيوائية.</li>
+        <li>الإشراف المباشر على المحفظين والمشرفين ومتابعة أدائهم.</li>
+        <li>متابعة شؤون الطالب (التعليمية، والسلوكية، والمعيشية، والصحية).</li>
+        <li>التنسيق مع أولياء الأمور والجهة المشرفة، ورفع التقارير الدورية.</li>
+        <li>معالجة المشاكل الطارئة واتخاذ القرارات الإدارية الحازمة والعادلة.</li>
+      </ul>
+
+      <div class="sub-sub-title">المحفظون والمربون:</div>
+      <ul>
+        <li><strong>دورهم:</strong> تعليم كتاب الله تعالى، وإتقان حفظه، وتزكية نفوس الطالب بالقدوة الحسنة.</li>
+      </ul>
+
+      <div class="sub-sub-title">الطلبة:</div>
+      <ul>
+        <li><strong>دورهم:</strong> بذل الوسع في التعلم والاجتهاد، والتخلق بآداب حملة القرآن الكريم.</li>
+      </ul>
+
+      <div class="sub-sub-title">الأسرة وأولياء الأمور:</div>
+      <ul>
+        <li><strong>دورهم:</strong> التعاون مع الكتّاب في متابعة الطالب ودعمه معنويًّا وتربويًّا.</li>
+      </ul>
+      <div class="page-num">— صفحة 9-10 —</div>
+    </div>
+
+    <!-- SECTION 6: نظام التربية -->
+    <div class="page" id="sec6">
+      <div class="section-title">نظام التربية والسلوك والحياة الجماعية</div>
+      <div class="sub-title">أوّلاً: المبادئ الأساسية للتربية</div>
+      <p>تقوم تربية الطالب داخل المحضن الداخلي على:</p>
+      <ol>
+        <li><strong>القدوة الحسنة:</strong> التزام المربين والمحفظين بالسلوك القويم ليكونوا نموذجًا حيًّا للطالب.</li>
+        <li><strong>الرحمة المقرونة بالحزم:</strong> معاملة الطالب بكرامة وشفقة مع عدم التهاون في تطبيق النظام.</li>
+        <li><strong>الرعاية والوقاية قبل العقوبة:</strong> من خلال توضيح القواعد مسبقًا وتوجيه الطالب قبل محاسبته.</li>
+        <li><strong>مراعاة الفروق الفردية:</strong> التدرج في التوجيه والتكليف ومراعاة سن الطالب وقدراته.</li>
+        <li><strong>الغاية الإصلاحية:</strong> استهداف تعديل السلوك وبناء الرقابة الذاتية.</li>
+      </ol>
+      <div class="sub-title">ثانياً: الآداب والنضباط والمسؤولية الشخصية</div>
+      <p>يُدرَّب الطالب ويُلزم بالآداب الآتية:</p>
+      <ul>
+        <li><strong>آداب طالب القرآن:</strong> من خلال تعظيم المصحف واحترام اللوح، وتوقير الشيوخ والإدارة، ولزوم الهدوء والسكينة المناسبة لمثاله.</li>
+        <li><strong>الانضباط العام:</strong> المحافظة على الصلوات جماعةً، والالتزام بأوقات الحصص، والنوم، والزيارات، والخروج والعودة.</li>
+        <li><strong>النظافة والعناية الشخصية:</strong> من خلال نظافة الملبس والمظهر، وترتيب مكان المبيت ومرافق الكتّاب.</li>
+        <li><strong>تحمل المسؤولية:</strong> من خلال تعويد الطالب على خدمة نفسه، وحفظ أدواته، والاعتراف بالخطأ، وإصلاح ما أفسده حسب طاقته.</li>
+      </ul>
+      <div class="sub-title">ثالثاً: ضوابط الحياة الجماعية وحماية البيئة التربوية</div>
+      <p>لضمان بيئة آمنة تسودها الأخوة:</p>
+      <ol>
+        <li><strong>قواعد التعامل:</strong> ترسيخ مشاعر الأخوة، والإيثار، والتعاون، واحترام خصوصية الأصدقاء.</li>
+        <li><strong>السلوكيات المحظورة (خطوط حمراء):</strong> يُمنع منعًا باتًّا:
+          <ul>
+            <li>الإيذاء الجسدي أو اللفظي.</li>
+            <li>التنمر، أو السخرية، أو التنابز بالألقاب.</li>
+            <li>التعدي على ممتلكات الغير أو استخدامها دون إذن.</li>
+            <li>إثارة الفوضى وإلحاق الضرر بمرافق الكتّاب.</li>
+            <li>أخذ الحق أو الانتصاف للنفس دون الرجوع للإدارة.</li>
+            <li>إذاعة الكلام البذيء أو استعماله.</li>
+          </ul>
+        </li>
+        <li><strong>إدارة الخلافات:</strong> تدريب الطالب على حل النزاعات بالحوار، وتدخل الإدارة السريع لفض أي خصومة بالعدل وسماع الأطراف.</li>
+      </ol>
+      <div class="page-num">— صفحة 12-13 —</div>
+    </div>
+
+    <!-- SECTION 7: البرنامج القرآني -->
+    <div class="page" id="sec7">
+      <div class="section-title">البرنامج القرآني اليومي مع نماذج تتبع الطالب</div>
+      <div class="sub-title">إيضاح بعض المصطلحات القرآنية:</div>
+      <ul>
+        <li><strong>استظهار اللوح:</strong> تسميع المقدار المكتوب في اللوح على الشيخ غيبًا بعد إتقانه وضبطه.</li>
+        <li><strong>المحية:</strong> المقدار القرآني الذي مُحِي من اللوح في الصباح؛ ويُكرره الطالب خلال اليوم ليثبت في صدره ولا يُنسى بعد محوه.</li>
+        <li><strong>الخامسة:</strong> ورد يومي لمراجعة الأحزاب الخمسة الأخيرة المحفوظة حديثًا لتثبيتها.</li>
+        <li><strong>السوار:</strong> ورد المراجعة الكبرى للمحفوظ القديم البعيد لضمان تعاهد القرآن كاملاً.</li>
+        <li><strong>الحزب الجديد:</strong> آخر ثمانية أثمان يحفظها الطالب.</li>
+      </ul>
+      <div class="sub-title">جدول المسار الزمني لليوم القرآني:</div>
+      <table>
+        <tr><th>الفترة الزمنية</th><th>الأنشطة</th></tr>
+        <tr><td>من الصبح إلى الظهر</td><td>• مراجعة الحزب الجديد<br>• استظهار اللوح على الشيخ<br>• محو اللوح<br>• الإفطار<br>• كتابة اللوح<br>• قراءة (الخامسة)<br>• عرض اللوح<br>• الشروع في قراءة اللوح قبل القيلولة<br>• القيلولة</td></tr>
+        <tr><td>من الظهر إلى العصر</td><td>• الشروع في قراءة (المحية) والحزب الجديد<br>• وجبة الغذاء<br>• الحفظ في اللوح</td></tr>
+        <tr><td>من العصر إلى المغرب</td><td>• قراءة (المحية) مع الحزب الجديد<br>• قراءة (السوار)<br>• استراحة</td></tr>
+        <tr><td>من المغرب إلى العشاء</td><td>• إتمام ورد (السوار)<br>• قراءة اللوح</td></tr>
+        <tr><td>بعد العشاء</td><td>• قراءة اللوح<br>• الاستعداد للنوم</td></tr>
+      </table>
+      <div class="page-num">— صفحة 15-16 —</div>
+    </div>
+
+    <!-- SECTION 7B: جداول تتبع الطالب -->
+    <div class="page" id="sec7b">
+      <div class="section-title">نماذج تتبع الطالب والجداول المرفقة</div>
+      
+      <div class="sub-title">جدول تَتَبُّعِ مُرَاجَعَةِ الطالب:</div>
+      <p>يحتوي على:</p>
+      <ul>
+        <li>اسم الطالب: .................................................................................</li>
+        <li>الحلقة: .........................................................................................</li>
+        <li>اسم الشيخ / المحفظ: ....................................................................</li>
+        <li>تاريخ بدء المراجعة: ..... / ..... / ........... هـ إلى: ..... / ..... / ........... هـ</li>
+      </ul>
+
+      <div class="sub-title">جدول تتبع مراجعة الأحزاب الستين كاملة:</div>
+      <p><strong>اسم الطالب:</strong> .................... &nbsp;&nbsp; <strong>التاريخ:</strong> ... .. / ....../.......... &nbsp;&nbsp; <strong>اسم الشيخ:</strong> .......................................</p>
+      
+      <table>
+        <tr>
+          <th>الحزب</th><th>عدد الأخطاء</th><th>درجة الحفظ</th><th>درجة الاجتهاد</th>
+          <th>الحزب</th><th>عدد الأخطاء</th><th>درجة الحفظ</th><th>درجة الاجتهاد</th>
+        </tr>
+        <tr><td>1</td><td></td><td></td><td></td><td>31</td><td></td><td></td><td></td></tr>
+        <tr><td>2</td><td></td><td></td><td></td><td>32</td><td></td><td></td><td></td></tr>
+        <tr><td>3</td><td></td><td></td><td></td><td>33</td><td></td><td></td><td></td></tr>
+        <tr><td>4</td><td></td><td></td><td></td><td>34</td><td></td><td></td><td></td></tr>
+        <tr><td>5</td><td></td><td></td><td></td><td>35</td><td></td><td></td><td></td></tr>
+        <tr><td>6</td><td></td><td></td><td></td><td>36</td><td></td><td></td><td></td></tr>
+        <tr><td>7</td><td></td><td></td><td></td><td>37</td><td></td><td></td><td></td></tr>
+        <tr><td>8</td><td></td><td></td><td></td><td>38</td><td></td><td></td><td></td></tr>
+        <tr><td>9</td><td></td><td></td><td></td><td>39</td><td></td><td></td><td></td></tr>
+        <tr><td>10</td><td></td><td></td><td></td><td>40</td><td></td><td></td><td></td></tr>
+        <tr><td>11</td><td></td><td></td><td></td><td>41</td><td></td><td></td><td></td></tr>
+        <tr><td>12</td><td></td><td></td><td></td><td>42</td><td></td><td></td><td></td></tr>
+        <tr><td>13</td><td></td><td></td><td></td><td>43</td><td></td><td></td><td></td></tr>
+        <tr><td>14</td><td></td><td></td><td></td><td>44</td><td></td><td></td><td></td></tr>
+        <tr><td>15</td><td></td><td></td><td></td><td>45</td><td></td><td></td><td></td></tr>
+        <tr><td>16</td><td></td><td></td><td></td><td>46</td><td></td><td></td><td></td></tr>
+        <tr><td>17</td><td></td><td></td><td></td><td>47</td><td></td><td></td><td></td></tr>
+        <tr><td>18</td><td></td><td></td><td></td><td>48</td><td></td><td></td><td></td></tr>
+        <tr><td>19</td><td></td><td></td><td></td><td>49</td><td></td><td></td><td></td></tr>
+        <tr><td>20</td><td></td><td></td><td></td><td>50</td><td></td><td></td><td></td></tr>
+        <tr><td>21</td><td></td><td></td><td></td><td>51</td><td></td><td></td><td></td></tr>
+        <tr><td>22</td><td></td><td></td><td></td><td>52</td><td></td><td></td><td></td></tr>
+        <tr><td>23</td><td></td><td></td><td></td><td>53</td><td></td><td></td><td></td></tr>
+        <tr><td>24</td><td></td><td></td><td></td><td>54</td><td></td><td></td><td></td></tr>
+        <tr><td>25</td><td></td><td></td><td></td><td>55</td><td></td><td></td><td></td></tr>
+        <tr><td>26</td><td></td><td></td><td></td><td>56</td><td></td><td></td><td></td></tr>
+        <tr><td>27</td><td></td><td></td><td></td><td>57</td><td></td><td></td><td></td></tr>
+        <tr><td>28</td><td></td><td></td><td></td><td>58</td><td></td><td></td><td></td></tr>
+        <tr><td>29</td><td></td><td></td><td></td><td>59</td><td></td><td></td><td></td></tr>
+        <tr><td>30</td><td></td><td></td><td></td><td>60</td><td></td><td></td><td></td></tr>
+      </table>
+
+      <div class="sub-title">ضوابط الرصد والتقييم:</div>
+      <ul>
+        <li><strong>درجة الإتقان (.... درجات):</strong>
+          <ul>
+            <li>(.....): ممتاز (استرسال تام دون تردد، مع السلامة من اللحن)</li>
+            <li>(.....): جيد جدًّا (تردد يسير مع السلامة من اللحن)</li>
+            <li>(......): مَقْبُول (وجود تعثر يحتاج إلى إعادة تثبيت)</li>
+            <li>(أقل من نصف الدرجة): غير مجاز (يُلزم الطالب بإعادة عرض الحزب كاملاً)</li>
+          </ul>
+        </li>
+        <li><strong>درجة الاجتهاد (.....):</strong> وهي درجات تقيس التزام الطالب بالبرنامج العام ويشمل ذلك عنايته بمواعيد المحو والمراجعة.</li>
+      </ul>
+
+      <div class="page-num">— صفحة 17-19 —</div>
+    </div>
+
+    <!-- SECTION 7C: جدول التقرير الشهري وبطاقة الطالب -->
+    <div class="page" id="sec7c">
+      <div class="section-title">التقارير الشهرية وبطاقة الطالب</div>
+      
+      <div class="sub-title">جَدْوَلُ التَّقْرِيرِ الشَّهرْيِ لِحِفْظِ الطَّالِبِ وَأَدَائِه:</div>
+      <p>يحتوي على:</p>
+      <ul>
+        <li>اسم الكتّاب</li>
+        <li>اسم الحلقة (في حال وجود أكثر من حلقة)</li>
+        <li>بالإضافة إلى المحتويات الموضحة في النموذج المرفق</li>
+        <li>يتم تغذية هذا التقرير من خلال التقارير اليومية التي يسجلها أستاذ الحلقة.</li>
+        <li>يستحسن إشراك أولياء الأمور في الاطلاع على هذه التقارير الشهرية.</li>
+      </ul>
+
+      <table>
+        <tr>
+          <th>الرقم</th><th>اسم الطالب</th><th>المحفوظ العام</th><th>حصيلة الحفظ الشهرية</th>
+          <th>درجة الحفظ</th><th>درجة المراجعة</th><th>درجة الاجتهاد</th><th>السلوك</th><th>ملاحظات</th>
+        </tr>
+        <tr><td>1</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>2</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>3</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>5</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>11</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>12</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>13</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>14</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>15</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>16</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>17</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>18</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>19</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>20</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>21</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>22</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>23</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>24</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>25</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      </table>
+
+      <div class="page-num">— صفحة 20 —</div>
+    </div>
+
+    <!-- SECTION 7D: بطاقة الطالب -->
+    <div class="page" id="sec7d">
+      <div class="section-title">بطاقة الطالب</div>
+      <div class="sub-title">بطاقة الطالب: استمارة يملأها الطالب عند التسجيل</div>
+      <p>وتحتوي على جميع المعلومات التي تحتاجها إدارة الكتّاب الداخلي عن الطالب.</p>
+
+      <div class="basmala">بسم الله الرحمن الرحيم</div>
+      
+      <div class="highlight-box">
+        <strong>كُتّابُ................................. &nbsp;&nbsp; بطاقة الطالب ................................</strong>
+      </div>
+
+      <div class="sub-title">المعلومات الشخصية:</div>
+      <table>
+        <tr><th style="width:40%">البيان</th><th>التفاصيل</th></tr>
+        <tr><td>الاسم العائلي</td><td></td></tr>
+        <tr><td>الاسم الشخصي</td><td></td></tr>
+        <tr><td>تاريخ ومكان الازدياد</td><td></td></tr>
+        <tr><td>رقم بطاقة التعريف الوطنية</td><td></td></tr>
+        <tr><td>اسم ولي الأمر</td><td></td></tr>
+        <tr><td>العنوان الشخصي</td><td></td></tr>
+        <tr><td>رقم الهاتف الشخصي</td><td></td></tr>
+        <tr><td>رقم هاتف ولي الأمر</td><td></td></tr>
+        <tr><td>تاريخ الالتحاق بالكُتّاب</td><td></td></tr>
+        <tr><td>تاريخ المغادرة</td><td></td></tr>
+      </table>
+
+      <div class="sub-title">المعلومات العامة:</div>
+      <p><strong>هل لك سبق أن درست في مدارس العتيقة أو المساجد؟</strong> (نعم) (لا)</p>
+      <p>إذا كان الجواب (نعم) ما هي مع بيان سبب المغادرة: ................................................................</p>
+
+      <div class="sub-title">المستوى الدراسي في العمومي:</div>
+      <p>................................................................................................................................</p>
+
+      <div class="sub-title">المحفوظ من القرآن الكريم:</div>
+      <p>................................................................................................................................</p>
+
+      <div class="sub-title">المحفوظ من المتون العلمية:</div>
+      <p>................................................................................................................................</p>
+
+      <div class="sub-title">المحفوظ من المشروح العلمي:</div>
+      <p>................................................................................................................................</p>
+
+      <p><strong>معلومات أخرى:</strong></p>
+      <p>......................................................................................................................</p>
+      <p>......................................................................................................................</p>
+
+      <div class="sub-title">الوثائق المطلوبة:</div>
+      <ul>
+        <li>عقود الازدياد</li>
+        <li>شهادة السكنى</li>
+        <li>صورتان فوتوغرافيتان</li>
+        <li>سجل حسن السيرة أو العدلي (لمن يتوفر عليه بطاقة التعريف الوطنية)</li>
+        <li>نسختان مصادق عليهما من بطاقة التعريف الوطنية (لمن يتوفر عليها)</li>
+      </ul>
+
+      <p><strong>إمضاء الطالب:</strong> .............................................</p>
+
+      <div class="page-num">— صفحة 21-22 —</div>
+    </div>
+
+    <!-- SECTION 8: نظام التقويم -->
+    <div class="page" id="sec8">
+      <div class="section-title">نظام التقويم والمتابعة والإتقان</div>
+      <div class="sub-title">أوّلاً: مفهوم التقويم ومعايير الإتقان</div>
+      <ul>
+        <li><strong>مفهوم التقويم:</strong> أداة تربوية مستمرة تهدف إلى معرفة المستوى الفعلي للطالب، واكتشاف الصعوبات مبكرًا لعلاجها، وليس مجرد تصنيف للطالب أو تسجيل للأخطاء.</li>
+        <li><strong>أسس التقويم:</strong> الاستمرارية في الملاحظة، والشمولية (حفظًا وأدبًا)، والعدالة والموضوعية، ومراعاة الفروق الفردية بين الطالب.</li>
+      </ul>
+      <p><strong>معايير الإتقان القرآني:</strong></p>
+      <ol>
+        <li><strong>في المراجعة:</strong> القراءة باسترسال وسهولة استحضار دون تردد أو تلقين متكرر.</li>
+        <li><strong>في الإتقان:</strong> ضبط الآليات المتشابهة وحفظ الأنصاص الضابطة لها.</li>
+        <li><strong>في الحفظ:</strong> ثبات المحفوظ القديم واستقراره حتى يمكن البناء عليه.</li>
+        <li><strong>في الأداء:</strong> سلامة التلاوة من الأخطاء التجويدية واللحن حسب ما تقتضيه المرحلة التعليمية.</li>
+      </ol>
+      <div class="sub-title">ثانياً: آليات وأدوات المتابعة والتقويم</div>
+      <ol>
+        <li><strong>متابعة الحفظ الجديد:</strong> التأكد من سلامة رسم اللوح وضبطه، وتسميعه للمحفظ دون أخطاء، وعدم الإذن بمحو اللوح إلا بعد استقرار الحفظ.</li>
+        <li><strong>متابعة المراجعة (التعاهد):</strong> تخصيص وقت ثابت لمراجعة المحفوظ القديم يوميًّا؛ لكون المراجعة هي الأصل في ثبات القرآن.</li>
+        <li><strong>أدوات التوثيق الميسرة:</strong>
+          <ul>
+            <li>سجل المتابعة اليومي: تسجيل مختصر لإنجاز الطالب.</li>
+            <li>الاختبارات والتقارير الدورية: تقويم مرحلي هادئ للتأكد من ثبات الأجزاء.</li>
+          </ul>
+        </li>
+        <li><strong>ضابط الانتقال:</strong> لا ينتقل الطالب إلى جزء أو مقدار جديد إلا بعد التثبت التام من إتقان ما قبله؛ فالقاعدة: «عدم بناء حفظ جديد على حفظ مضطرب».</li>
+      </ol>
+      <div class="sub-title">ثالثاً: خطة معالجة التعثر ودعم الطالب</div>
+      <p>عند ظهور ضعف أو تعثر مستمر لدى الطالب، يُتبع المسار الآتي:</p>
+      <ol>
+        <li><strong>تشخيص المشكلة:</strong> بتحديد موضع الضعف (هل هو في بطء الحفظ، أم تفلت المراجعة، أم قلة التركيز، أم صعوبة التأقلم مع الإقامة الداخلية؟).</li>
+        <li><strong>اتخاذ الإجراء المناسب:</strong>
+          <ul>
+            <li>تخفيف مقدار الحفظ اليومي مؤقتًا بما يناسب طاقة الطالب.</li>
+            <li>مضاعفة حصص المراجعة والتثبيت للمواضع المختلة.</li>
+            <li>التركيز على معالجة الأخطاء المتكررة من خلال التأكيد على مزيد عناية بها.</li>
+          </ul>
+        </li>
+        <li><strong>الدعم النفسي:</strong> من خلال تشجيع الطالب وتقدير أي تحسن يطرأ عليه، وتجنب المقارنات المحبطة مع زملائه.</li>
+        <li><strong>التنسيق مع الأسرة:</strong> قد يحتاج العلاج إلى إشراك ولي الأمر في خطة الدعم.</li>
+        <li><strong>متابعة الأثر:</strong> تقييم نتائج الخطة بعد مدة محددة، وتعديلها بحسب استجابة الطالب وتقدمه.</li>
+      </ol>
+      <div class="page-num">— صفحة 23-24 —</div>
+    </div>
+
+    <!-- SECTION 8B: التحصيل المتوسط والإجازات -->
+    <div class="page" id="sec8b">
+      <div class="section-title">التحصيل المتوسط والجدول الزمني</div>
+      
+      <div class="sub-title">خامساً: التحصيل المتوسط للطالب:</div>
+      <ul>
+        <li>يجب أن يكون لدى إدارة المحضن القرآني خطة بيانية ترصد المسار الزمني الذي يتوقع تحقيق الطالب فيه للأهداف التعليمية ـ ولو على سبيل التقريب ـ ووضع خطط المتابعة والتقييم والتقويم بناء على ذلك.</li>
+        <li>تبنى خطة الرصد على البرنامج اليومي المعمول به لدى الكتّاب، ويؤخذ في الاعتبار عدد الألواح التي يفترض حفظها في اليوم ويضرب المقدار في عدد أيام الدراسة في الشهر ثم السنة حسب البرنامج الدراسي المعتمد.</li>
+      </ul>
+
+      <div class="sub-title">نموذج جدول التحصيل المتوسط للطالب:</div>
+      <table>
+        <tr>
+          <th>الإطار الزمني</th>
+          <th>المقدار المقرر (بالثمان)</th>
+          <th>الحصيلة التراكمية</th>
+        </tr>
+        <tr>
+          <td>أسبوعياً</td>
+          <td>6 أثمان</td>
+          <td>ثلاثة أرباع الحزب</td>
+        </tr>
+        <tr>
+          <td>شهرياً (4 أسابيع)</td>
+          <td>24 ثُمناً</td>
+          <td>ثلاثة أحزاب كاملة</td>
+        </tr>
+        <tr>
+          <td>سنوياً (10 أشهر دراسية)</td>
+          <td>240 ثُمناً</td>
+          <td>ثلاثون حزباً (نصف القرآن الكريم)</td>
+        </tr>
+      </table>
+
+      <div class="sub-title">الضوابط والإجراءات التنظيمية:</div>
+      <ul>
+        <li><strong>الفرز والتصنيف:</strong> يجب فرز الطالب وتصنيفهم في مجموعات بحسب قدراتهم في التحصيل.</li>
+        <li><strong>التتبع اليومي:</strong> يجب وضع لائحة يومية تقدم للمحفظ لتسهيل تتبع الحفظ اليومي للطالب.</li>
+        <li><strong>التعاون بين الإدارة والأستاذة:</strong> بحيث يلتزم المحفظون بتسجيل تقدم الطالب في اللوائح المعتمدة، ورفع التقرير الشهري لإدارة ليتم بناء خطة معالجة التعثر عليه.</li>
+      </ul>
+
+      <div class="sub-title">سادساً: جدول الإجازات</div>
+      <p>هناك ارتباط وثيق بين خطة الإنجاز التحصيلي المتوقع للطالب وجدول العطل المعتمد؛ لأن التحصيل يبنى على عدد الأيام والشهور التي يكون التحصيل فيها، ولذلك تقرر أن يكون جدول العطل والإجازات المقترحة كالتالي:</p>
+
+      <table>
+        <tr>
+          <th>نوع العطلة</th>
+          <th>المدة</th>
+        </tr>
+        <tr>
+          <td>عطلة المولد النبوي الشريف</td>
+          <td>10 أيام</td>
+        </tr>
+        <tr>
+          <td>العطلة البينية: وتكون بين المولد وعيد الفطر</td>
+          <td>10 أيام</td>
+        </tr>
+        <tr>
+          <td>عطلة عيد الفطر المبارك</td>
+          <td>15 يوماً</td>
+        </tr>
+        <tr>
+          <td>عطلة عيد الأضحى المبارك</td>
+          <td>20 يوماً</td>
+        </tr>
+      </table>
+
+      <div class="sub-title">الضوابط والالتزامات التربوية والتنظيمية:</div>
+      <ul>
+        <li>بناء على ما سبق، يكون مجموع أيام الإجازات السنوية 55 يوماً، وبذلك تستوفي الخطة التعليمية عشرة أشهر دراسية صافية، وهو المقدار الكافي لإتمام الحفظ والمراجعة وفق البرنامج المتقرر.</li>
+        <li>تُختتم الفترات التحصيلية السابقة لكل عطلة بتكريم الطلبة المتميزين وفق المسارات التي تحددها الإدارة سلفاً مثل مسار الحفظ ــ مسار السيرة والسلوك ــ مسار المهارات وهكذا.</li>
+        <li>يُقام حفل تكريمي في نهاية كل موسم دراسي لتكريم الأستاذة وفق مسارات محددة.</li>
+        <li>يُكلَّف الطلبة ببرامج مراجعة ذاتية منزلية تشرف عليها الأسرة خلال أيام الإجازة؛ دفعاً لتفلت المحفوظ.</li>
+        <li>يمنع منعاً باتاً التساهل مع من أخل بالالتزام بمواعيد العودة للكتّاب، إلا لعذر صحيح.</li>
+        <li>يحق للإدارة التصرف في مواعيد العطل وعدد أيامها وفق المصلحة وبما لا يتعارض مع جودة الأداء.</li>
+      </ul>
+
+      <div class="page-num">— صفحة 25-27 —</div>
+    </div>
+
+    <!-- SECTION 9: الأنشطة الموازية -->
+    <div class="page" id="sec9">
+      <div class="section-title">الأنشطة والبرامج الموازية</div>
+      <div class="sub-title">أوّلاً: أهداف وضوابط الأنشطة</div>
+      <ul>
+        <li><strong>الهدف:</strong> تجديد نشاط الطالب، واستثمار أوقات الفراغ بما ينفع، وتنمية المواهب وبناء الشخصية المتوازنة عبر الترويح المباح.</li>
+      </ul>
+      <p><strong>الضوابط الحاكمة:</strong></p>
+      <ol>
+        <li><strong>أولوية القرآن:</strong> حتى لا تؤدي الأنشطة إلى تعطيل أوقات الحفظ والمراجعة أو الإخلال بأوقات الصلوات والراحة.</li>
+        <li><strong>الانسجام الأخلاقي:</strong> من خلال ملائمة الأنشطة للبيئة القرآنية، وخلوها من السلوكيات المؤذية أو التنافس غير الشريف.</li>
+        <li><strong>السلامة والأمان:</strong> مراعاة شروط السلامة البدنية ومناسبة النشاط لأعمار الطالب وقدراتهم.</li>
+      </ol>
+      <div class="sub-title">ثانياً: مجالات الأنشطة الموازية</div>
+      <p>تنتظم الأنشطة في أربع مسارات متكاملة:</p>
+      <ol>
+        <li><strong>المسار القرآني والثقافي:</strong>
+          <ul>
+            <li>مسابقات الإتقان القرآني وحسن الصوت والترتيل.</li>
+            <li>المسابقات الثقافية والعلمية، وجلسات القراءة والمطالعة النافعة.</li>
+          </ul>
+        </li>
+        <li><strong>مسار تنمية المواهب والمهارات:</strong>
+          <ul>
+            <li>تحسين الخط العربي ورسم المصحف الشريف.</li>
+            <li>التدريب على الإلقاء والخطابة والتقديم.</li>
+          </ul>
+        </li>
+        <li><strong>المسار الرياضي والبدني:</strong>
+          <ul>
+            <li>الألعاب والأنشطة الرياضية المنظمة؛ لتقوية البدن، وتنمية روح التعاون والانضباط الجماعي.</li>
+          </ul>
+        </li>
+        <li><strong>مسار الترويح والرحلات:</strong>
+          <ul>
+            <li>الرحلات الهادفة والزيارات العلمية.</li>
+            <li>الاحتفاء بالمواسم الدينية والوطنية وإقامة الأمسيات الدينية والترفيهية المنضبطة.</li>
+          </ul>
+        </li>
+      </ol>
+      <div class="page-num">— صفحة 28-29 —</div>
+    </div>
+
+    <!-- SECTION 10: نظام التغذية -->
+    <div class="page" id="sec10">
+      <div class="section-title">نظام التغذية والإطعام</div>
+      <div class="sub-title">أوّلاً: أهداف وضوابط نظام التغذية</div>
+      <ul>
+        <li><strong>الهدف:</strong> توفير وجبات غذائية متوازنة وصحية في مواعيد منتظمة؛ لبناء صحة الطالب ونشاطه بما يعينه على التحصيل والأداء المطلوب.</li>
+      </ul>
+      <p><strong>اشتراطات السلامة والنظافة:</strong></p>
+      <ol>
+        <li>الالتزام الصارم بنظافة أماكن إعداد وتقديم الطعام وأدواته.</li>
+        <li>التأكد من سلامة الأغذية وصلاحيتها، والتخلص من المخلفات.</li>
+        <li>تنظيم دخول الطالب وجلوسهم في قاعة الطعام بهدوء وانضباط، مع إتاحة وقت كافٍ لتناول الوجبة.</li>
+      </ol>
+      <div class="sub-title">ثانياً: الآداب الشرعية</div>
+      <p>يُربَّى الطالب أثناء الوجبات على:</p>
+      <ol>
+        <li><strong>الآداب النبوية:</strong> غسل اليدين، والتسمية في أول الطعام، والأكل باليمين ومما يليه، وحمد الله تعالى في آخره.</li>
+        <li><strong>شكر النعمة ومنع الإسراف:</strong> أخذ الطعام بقدر الحاجة دون إسراف، والنهي التام عن العبث بالطعام أو رميه.</li>
+        <li><strong>المسؤولية الجماعية:</strong> المحافظة على أدوات المطبخ عموماً والمساعدة حسب الحاجة.</li>
+        <li>احتراف القائمين على المطبخ وتقدير جهودهم، وعدم تقبيح الطعام.</li>
+        <li>من حق الطلبة أو المدرسين تقديم الشكاوى المتعلقة بالتغذية للإدارة وعدم التهاون في ذلك.</li>
+      </ol>
+      <div class="sub-title">ثالثاً: الرعاية والحالات الصحية الخاصة</div>
+      <p>يجب حصر الحالات الصحية الخاصة (مثل: الحساسية الغذائية، أو الحميات الطبية الضرورية) بناءً على تقارير موثقة من أولياء الأمور عند التسجيل. وفي حال تم قبول الطالب فإن الإدارة ملزمة بتوفير البدائل الغذائية المناسبة للحالات الخاصة في حدود الإمكانيات المتاحة.</p>
+      <div class="page-num">— صفحة 30-31 —</div>
+    </div>
+
+    <!-- SECTION 11: العلاقة مع الأسرة -->
+    <div class="page" id="sec11">
+      <div class="section-title">العلاقة مع الأسرة والزيارات</div>
+      <div class="sub-title">أوّلاً: أُسس الشراكة والتواصل مع الأسرة</div>
+      <ul>
+        <li><strong>مبدأ الشراكة:</strong> تقوم العلاقة بين الكتّاب وأسرة الطالب على التعاون والتكامل؛ فالكتّاب مسؤول عن الرعاية والتعليم الداخلي، والأسرة شريك أصيل في الدعم والمتابعة.</li>
+      </ul>
+      <p><strong>قنوات وضوابط التواصل:</strong></p>
+      <ol>
+        <li>توفير قنوات اتصال رسمية ومحددة بين الإدارة وأولياء الأمور للاطلاع على مسار الطالب العلمي والسلوكي.</li>
+        <li>اختيار الأوقات المناسبة للتواصل.</li>
+        <li>التواصل الفوري في الطوارئ: الاتصال المباشر بولي الأمر أو من يقوم مقامه في الحالات الصحية الطارئة أو المستجدات التربوية المهمة.</li>
+      </ol>
+      <div class="sub-title">ثانياً: نظام وضوابط الزيارات</div>
+      <ol>
+        <li><strong>المواعيد المحددة:</strong> تُنظم الزيارات في أوقات محددة بالتنسيق مع الإدارة؛ حرصًا على استقرار بيئة التحفيظ وعدم إرباك البرنامج اليومي.</li>
+        <li><strong>التحقق والأمن:</strong> يُقتصر في الزيارة على أولياء الأمور أو من يفوضهم ولي الأمر كتابيًّا، مع التحقق من الهوية لضمان سلامة الطالب.</li>
+        <li><strong>مكان الزيارة:</strong> تتم الزيارات في الأماكن المخصصة للضيافة، مع مراعاة خصوصية بقية الطالب ونظام المحضن الداخلي.</li>
+      </ol>
+      <div class="sub-title">ثالثاً: إجراءات الخروج والعودة والإجازات</div>
+      <ol>
+        <li><strong>الخروج الدوري والإجازات:</strong> مغادرة الطالب وعودتهم تتم وفق المواعيد والتقويم المعتمد.</li>
+        <li><strong>الخروج الاستثنائي (الطارئ):</strong> لا يُسمح بخروج الطالب في غير الأوقات المحددة إلا بطلب مباشر من ولي الأمر وموافقة إدارة الكتّاب.</li>
+        <li><strong>الانضباط في العودة:</strong> الالتزام الصارم بموعد العودة المحدد، وإشعار الإدارة مسبقًا بأي عذر طارئ.</li>
+      </ol>
+      <div class="page-num">— صفحة 32-33 —</div>
+    </div>
+
+    <!-- SECTION 12: البرامج العلمية -->
+    <div class="page" id="sec12">
+      <div class="section-title">البرامج العلمية الموازية</div>
+      <div class="sub-title">أوّلاً: أهداف وضوابط البرامج العلمية</div>
+      <ul>
+        <li>إكساب الطالب القدر العلمي الشرعي الضروري.</li>
+        <li>توسيع مدارك الطالب من خلال إسماعهم المعارف الشرعية والتربوية النافعة.</li>
+        <li>تدريب الطالب على القراءة والسرد للمصنفات الشرعية.</li>
+        <li>تحبيبهم في العلم وتوجيههم لصناعة أهداف علمية.</li>
+      </ul>
+      <div class="sub-title">ثانياً: مجالات البرامج العلمية</div>
+      <p>تنتظم هذه الأنشطة في مسارات متكاملة:</p>
+      <ol>
+        <li><strong>مسار القرآن الكريم:</strong>
+          <ul>
+            <li>تفسير سور المفصل، والقصص القرآني.</li>
+            <li>دروس التجويد.</li>
+            <li>مدارسة متن في رسم القرآن الكريم.</li>
+          </ul>
+        </li>
+        <li><strong>مسار الحديث:</strong>
+          <ul>
+            <li>العناية بأحاديث الأربعين.</li>
+            <li>سرد ومدارسة الشمائل المحمدية.</li>
+          </ul>
+        </li>
+        <li><strong>مسار السيرة:</strong>
+          <ul>
+            <li>منظومة قرة الأبصار في سيرة المشفع المختار ﷺ.</li>
+            <li>سرد ومدارسة كتاب نثري في السيرة.</li>
+          </ul>
+        </li>
+        <li><strong>مسار اللغة والأدب:</strong>
+          <ul>
+            <li>النحو الصغير.</li>
+            <li>المية ابن الوردي.</li>
+          </ul>
+        </li>
+        <li><strong>مسار الفقه والآداب الشرعية:</strong>
+          <ul>
+            <li>نظم المرشد المعين.</li>
+            <li>نظم أحسن الأخلاق.</li>
+            <li>الأذكار النبوية.</li>
+          </ul>
+        </li>
+      </ol>
+      <div class="page-num">— صفحة 34-35 —</div>
+    </div>
+
+    <!-- SECTION 13: الموارد البشرية -->
+    <div class="page" id="sec13">
+      <div class="section-title">الموارد البشرية داخل الكتّاب</div>
+      <div class="sub-title">أوّلاً: معايير اختيار وصفات الكادر التربوي</div>
+      <p>نجاح الكتّاب يقوم على كفاءة العاملين؛ لذا يُراعى في اختيارهم:</p>
+      <ol>
+        <li><strong>المعايير العامة:</strong> حُسن السيرة والاستقامة، والأمانة، والقدرة على تحمّل أعباء الإقامة الداخلية والتعامل التربوي مع الناشئة.</li>
+        <li><strong>الكفاءة التخصصية للمُحفّظ:</strong>
+          <ul>
+            <li>الحفظ المتقن لكتاب الله تعالى، وضبط أحكام التجويد، ومعرفة رسم المصحف والأنصاص القرآنية الضابطة.</li>
+            <li>مهارة إدارة الحلقة، ومراعاة الفروق الفردية بين الطالب.</li>
+            <li>التحلي بالصبر، والرحمة، والعدل، وضبط النفس، وأن يكون قدوة صالحة في سمتِه وسلوكه.</li>
+            <li>القدرة على الانسجام ضمن فريق العمل.</li>
+            <li>التعهد بالالتزام بالبرنامج المعتمد.</li>
+          </ul>
+        </li>
+      </ol>
+      <div class="sub-title">ثانياً: بيئة العمل، وإدارة الخلافات</div>
+      <ol>
+        <li><strong>وضوح المهام المسندة:</strong> تحديد مهام وصلاحيات كل عامل بدقة؛ منعًا لتداخل الأدوار أو ضياع المسؤولية.</li>
+        <li><strong>الاجتماعات الدورية:</strong> عقد لقاءات مهنية منتظمة لمتابعة مسار الحلقات، ومعالجة المشاكل الطارئة، وتبادل الخبرات والتجارب الناجحة.</li>
+        <li><strong>بيئة العمل وفض النزاعات:</strong> توفير بيئة يسودها الاحترام المتبادل والتعاون، ومعالجة أي خلل مهني عبر الحوار الهادئ والرجوع للائحة الإدارية.</li>
+      </ol>
+      <div class="sub-title">ثالثاً: التأهيل والتطوير المهني المستمر</div>
+      <ul>
+        <li><strong>التأهيل العلمي والتربوي:</strong> دورات في طرائق الإقراء، وأساليب التربية وتعديل السلوك، ومراعاة الفروق الفردية.</li>
+        <li><strong>المهارات الإدارية والمساندة:</strong> التدريب على السلامة العامة، والإسعافات الأولية، ومهارات التواصل الفعّال.</li>
+        <li><strong>تبادل التجارب:</strong> تشجيع الاستفادة من الممارسات المتميزة بين المحفظين ونقل الخبرات الميدانية.</li>
+        <li><strong>تحفيزات:</strong> تخصيص تحفيزات في ختام السنة الدراسية للأطر المتميزة بحسب مجال العمل.</li>
+      </ul>
+      <div class="page-num">— صفحة 36-37 —</div>
+    </div>
+
+    <!-- SECTION 14: نظام التواصل -->
+    <div class="page" id="sec14">
+      <div class="section-title">نظام التواصل والتوثيق</div>
+      <div class="sub-title">أوّلاً: نظام وقنوات التواصل المؤسسي</div>
+      <ul>
+        <li><strong>الهدف:</strong> ضمان انسياب المعلومات بدقة ووضوح، ومنع تضارب التوجيهات أو ضياع القرارات.</li>
+      </ul>
+      <p><strong>قنوات التواصل المعتمدة:</strong></p>
+      <ol>
+        <li><strong>التواصل الداخلي (الإدارة والعاملون):</strong>
+          <ul>
+            <li>الاجتماعات الدورية لضبط مسار العمل ومتابعة الحلقات.</li>
+            <li>التعليمات الإدارية المكتوبة لتحديد المهام والقرارات الرسمية.</li>
+          </ul>
+        </li>
+        <li><strong>التواصل مع الأسرة:</strong> استخدام القنوات الرسمية المعتمدة لنقل التقارير، والإعلانات، ومواعيد الإجازات، والاتصال الفوري في الحالات الطارئة.</li>
+      </ol>
+      <div class="sub-title">ثانياً: منظومة السجلات والتوثيق</div>
+      <p>يُعتمد نظام توثيق ميسّر (ورقيًّا أو رقميًّا) يشمل أربع سجلات رئيسة:</p>
+      <ol>
+        <li><strong>ملف الطالب الشامل:</strong> يتضمن البيانات الشخصية، والحالة الصحية، وتاريخ الالتحاق، ومستواه القرآني.</li>
+        <li><strong>سجلات الحفظ والمتابعة:</strong> رصد مقدار الحفظ الجديد (اللوح)، والمراجعة.</li>
+        <li><strong>سجلات الضبط والحركة:</strong> سجل الحضور والغياب اليومي للطالب، وسجل أذونات الخروج والزيارات.</li>
+        <li><strong>التوثيق الإداري:</strong> حفظ محاضر الاجتماعات، والقرارات الإدارية، واللوائح المنظمة لتسهيل الرجوع إليها.</li>
+      </ol>
+      <div class="sub-title">ثالثاً: سرية البيانات وحفظ الخبرة المؤسسية</div>
+      <p>الالتزام التام بسرية بيانات الطالب والأسر والعاملين، وقصر الاطلاع عليها على المعنيين فقط، وتأمين حفظ الوثائق من التلف أو الضياع.此外، تدوين الممارسات الناجحة والحلول التربوية المبتكرة؛ لتراكم الخبرة وضمان استمرار العمل بجودة عالية.</p>
+      <div class="page-num">— صفحة 38-39 —</div>
+    </div>
+
+    <!-- SECTION 15: الجودة والتطوير -->
+    <div class="page" id="sec15">
+      <div class="section-title">الجودة والتطوير والتحسين المستمر</div>
+      <div class="sub-title">أوّلاً: مفهوم وثقافة الجودة</div>
+      <ul>
+        <li><strong>مفهوم الجودة:</strong> السعي الدائم لأداء العمل بإتقان، ومعالجة أوجه القصور، وتحسين المخرجات وفق الإمكانيات المتاحة، دون إثقال العمل بإجراءات شكلية معقدة.</li>
+      </ul>
+      <p><strong>المسؤولية المشتركة والاستمرار:</strong></p>
+      <ol>
+        <li>الجودة مسؤولية يشترك فيها الجميع (الإدارة، المحفظون، الطالب، والأسرة).</li>
+        <li>اعتماد مبادرات تطويرية واقعية قابلة للاستمرار، لا ترتهن بالجهود الفردية المؤقتة.</li>
+        <li>ترسيخ ثقافة تقبّل الملاحظات واعتبار المراجعة الدورية وسيلة للارتقاء لا دليلًا على التقصير.</li>
+      </ol>
+      <div class="sub-title">ثانياً: مجالات ومعايير تقييم الأداء</div>
+      <p>تُتابع الجودة في مختلف مسارات العمل وفق المعايير الآتية:</p>
+      <ol>
+        <li><strong>مستوى الإتقان القرآني:</strong> نسبة إنجاز الحفظ وثبات المراجعة وضبط التلاوة.</li>
+        <li><strong>استقرار البيئة الداخلية:</strong> انضباط البرنامج اليومي، ونظافة المرافق، ومراعاة السلامة والصحة.</li>
+        <li><strong>كفاءة الإدارة والتواصل:</strong> وضوح التكليفات، وحسن استثمار الموارد، وسرعة معالجة المشاكل، والتواصل الفعّال مع الأسر.</li>
+      </ol>
+      <div class="sub-title">ثالثاً: منهجية إدارة البرامج التطويرية</div>
+      <ol>
+        <li><strong>ترتيب الأولويات:</strong> تقديم المسائل المرتبطة بالسلامة والصحة والاحتياجات الأساسية، تليها أولويات تجويد التعليم والتربية وما إلى ذلك.</li>
+        <li><strong>المشاركة الميدانية:</strong> الاستفادة من مقترحات وملاحظات المحفظين والعاملين بصفتهم الأقرب إلى الميدان التعليمي.</li>
+      </ol>
+      <div class="sub-title">مراحل خطة التحسين:</div>
+      <ol>
+        <li><strong>التشخيص:</strong> تحديد المشكلة أو الاحتياج بدقة.</li>
+        <li><strong>التخطيط:</strong> صياغة أهداف عملية واضحة، وتحديد الإجراءات والمسؤولين والمدى الزمني.</li>
+        <li><strong>التمكين:</strong> مباشرة عملية التحسين.</li>
+      </ol>
+      <div class="sub-title">رابعاً: قياس الأثر وتحديث الدليل المرجعي</div>
+      <ul>
+        <li><strong>قياس الأثر:</strong> متابعة نتائج أي إجراء تطويري للتأكد من تحقيقه للهدف المنشود.</li>
+        <li><strong>توثيق التجارب الناجحة:</strong> تدوين المشاريع والممارسات المتميزة لحفظ الخبرة وتيسير نقلها.</li>
+        <li><strong>مراجعة وتحديث الدليل:</strong> خضوع هذا الدليل للمراجعة والتطوير الدوري بما يحقق المصلحة.</li>
+      </ul>
+      <div class="page-num">— صفحة 40-41 —</div>
+    </div>
+
+    <!-- SECTION 16: السلامة والصحة -->
+    <div class="page" id="sec16">
+      <div class="section-title">السلامة والصحة داخل الكتّاب</div>
+      <div class="sub-title">أوّلاً: الوقاية العامة وتأمين المرافق</div>
+      <ul>
+        <li><strong>مبدأ السلامة:</strong> الوقاية الاستباقية واكتشاف مصادر الخطر قبل وقوعها، وتدريب الجميع على التصرف الهادئ والسريع.</li>
+      </ul>
+      <p><strong>تأمين البيئة والمرافق:</strong></p>
+      <ol>
+        <li>الصيانة الدورية لمصادر الغاز والطاقة، ومعالجة أي عطل فور ظهوره.</li>
+        <li>إبعاد المواد الكيميائية وأدوات التنظيف الخطرة عن متناول الطالب.</li>
+        <li><strong>خطة الطوارئ والإخلاء:</strong> تحديد مخارج طوارئ واضحة وآمنة، وتدريب الطالب والعاملين على الإخلاء المنظم.</li>
+      </ol>
+      <div class="sub-title">ثانياً: الرعاية الصحية والتعامل مع الأمراض والأدوية</div>
+      <ol>
+        <li><strong>الوقاية الصحية العامة:</strong> من خلال العناية بتهوية المرافق ونظافتها، وضمان جودة المياه والغذاء لمنع انتشار العدوى.</li>
+        <li><strong>ضوابط الأدوية:</strong> يُحظر صرف أو إعطاء أي دواء للطالب إلا بناءً على وصفة طبية معتمدة وتعليمات كتابية من ولي الأمر.</li>
+        <li><strong>الأمراض المعدية:</strong> عند الاشتباه في مرض مُعْدٍ، يُعزل الطالب فورًا في مكان مهيأ ومريح، وتستدعى أسرته لاستلامه.</li>
+        <li><strong>الإصابات والإسعافات الأولية:</strong> من خلال السعي لتوفير حقيبة إسعافات أولية متكاملة، وتقديم الرعاية الفورية، ونقل الحالات الحرجة فورًا إلى المركز الصحي.</li>
+      </ol>
+      <div class="sub-title">ثالثاً: الرعاية النفسية والاستقرار التربوي</div>
+      <ul>
+        <li><strong>ملاحظة الحالة:</strong> متابعة الطالب الذين تظهر عليهم تغيرات سلوكية مفاجئة، مثل: العزلة الشديدة، أو الخوف المفرط، أو صعوبة التأقلم مع نظام الإقامة الداخلية.</li>
+        <li><strong>الدعم والإرشاد:</strong> من خلال احتواء الطالب بالحكمة والرفق، والتنسيق مع ولي الأمر لمعالجة الصعوبات النفسية.</li>
+      </ul>
+      <div class="page-num">— صفحة 42-43 —</div>
+    </div>
+
+    <!-- SECTION 17: الإطار المرجعي -->
+    <div class="page" id="sec17">
+      <div class="section-title">الإطار المرجعي العام للدليل</div>
+      <div class="sub-title">أوّلاً: موقع الدليل في بناء الكتّاب</div>
+      <div class="highlight-box">
+        يمثل هذا الدليل «الوثيقة المرجعية الحاكمة» التي تنتظم في إطارها مختلف جوانب العمل في كُتّاب القرآن الكريم الداخلي:
+      </div>
+      <ul>
+        <li><strong>توحيد الرؤية والممارسة:</strong> تحويل المبادئ التربوية والشرعية إلى إجراءات عمل يومية واضحة وموحدة.</li>
+        <li><strong>الذاكرة المؤسسية:</strong> حفظ الأنظمة والتجارب المتراكمة؛ لضمان استمرارية العمل واستقراره بصرف النظر عن تعاقب المسؤولين أو تغيّر الأشخاص.</li>
+        <li><strong>المرجعية عند اتخاذ القرار:</strong> الاحتكام إلى بنود هذا الدليل لحسم النزاعات وضبط الاختصاصات بين مختلف المستويات الإدارية والتربوية.</li>
+      </ul>
+      <div class="sub-title">ثانياً: قواعد التنزيل والتطوير</div>
+      <ol>
+        <li><strong>التدرج والواقعية:</strong> يُنزّل هذا الدليل تنزيالً متدرجًا يراعي أولويات العمل، وطبيعة الطالب، والإمكانيات المتاحة دون مشقة أو تعقيد.</li>
+        <li><strong>المراجعة الدورية:</strong> يخضع الدليل للمراجعة والتحيين المستمر كلما دعت المصلحة المعتبرة أو ظهرت ممارسات ميدانية تثري التجربة وترتقي بمخرجات الكتّاب.</li>
+      </ol>
+      <div class="sub-title">ثالثاً: المقصد الجامع</div>
+      <div class="highlight-box">
+        إن المقصد الأسمى من هذا الدليل تسهيل عمل الكتاتيب للوصول إلى الهدف الأسمى ألا وهو: <strong>خدمة كتاب الله تعالى، وبناء جيلٍ قرآنيّ متكامل؛ يجمع بين متانة الحفظ وضبط الرسم، واستقامة السلوك، وزكاة النفس، في بيئة إيوائية آمنة، منضبطة، ومشجعة على العطاء والتميز.</strong>
+      </div>
+      <p>وفي الختام نسأل الله العلي القدير أن يجعل هذا العمل خالصًا لوجهه الكريم، وأن يبارك في جهود كل مرابط على ثغر من ثغور هذه المحاضن القرآنية والرياض الإيمانية من إدارة وإشراف ومربين، وكل من كان له دور في خدمة كتاب الله وأهله، إنه سميع مجيب، وآخر دعوانا أن الحمد لله رب العالمين.</p>
+      <div class="page-num">— صفحة 44-45 —</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FLOATING BUTTONS -->
+<div class="floating-btns">
+  <button class="float-btn whatsapp" onclick="window.open('https://wa.me/212605706006','_blank')" aria-label="تواصل واتساب">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span class="tooltip-float">تواصل عبر واتساب</span>
+  </button>
+  <button class="float-btn install" id="installBtn" onclick="installApp()" aria-label="تثبيت الكتاب">
+    <svg width="24" height="24" fill="none" stroke="white" stroke-width="2"><path d="M12 3v13m0 0l-4-4m4 4l4-4M5 19h14"/></svg>
+    <span class="tooltip-float">تثبيت الكتاب</span>
+  </button>
+  <button class="float-btn scroll-top" id="scrollTopBtn" onclick="scrollToTop()" aria-label="العودة للأعلى">
+    <svg width="22" height="22" fill="none" stroke="white" stroke-width="2.5"><path d="M12 19V6m0 0l-5 5m5-5l5 5"/></svg>
+    <span class="tooltip-float">العودة للأعلى</span>
+  </button>
+</div>
+
+<script>
+// ===== THEME =====
+const body = document.body;
+const themeBtn = document.getElementById('themeBtn');
+
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('ebook-theme', theme);
+  if (theme === 'dark') {
+    themeBtn.innerHTML = '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="9" r="4"/><path d="M9 1v2M9 15v2M1 9h2M15 9h2M3.3 3.3l1.4 1.4M13.3 13.3l1.4 1.4M3.3 14.7l1.4-1.4M13.3 4.7l1.4-1.4"/></svg><span class="tooltip">الوضع النهاري</span>';
+  } else {
+    themeBtn.innerHTML = '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 2a7 7 0 100 14 5.5 5.5 0 010-14z"/></svg><span class="tooltip">الوضع الليلي</span>';
+  }
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme');
+  setTheme(current === 'dark' ? 'light' : 'dark');
+}
+
+function shareApp() {
+  const shareUrl = window.location.href;
+  const shareTitle = 'الدليل الإرشادي لكتّاب القرآن الكريم الداخلي';
+  const shareText = 'الدليل الإرشادي الشامل لكتّاب القرآن الكريم الداخلي';
+  
+  if (shareUrl.startsWith('http')) {
+    if (navigator.share) {
+      navigator.share({ title: shareTitle, text: shareText, url: shareUrl }).catch(() => {});
+    } else {
+      copyToClipboard(shareUrl);
+    }
+  } else {
+    copyToClipboard(shareTitle + '\n' + shareText);
+  }
+}
+
+function copyToClipboard(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    alert('تم النسخ بنجاح!');
+  } catch(e) {
+    prompt('انسخ هذا النص:', text);
+  }
+  document.body.removeChild(ta);
+}
+
+const savedTheme = localStorage.getItem('ebook-theme') || 'light';
+setTheme(savedTheme);
+
+// ===== ZOOM =====
+let zoomLevel = parseInt(localStorage.getItem('ebook-zoom') || '100');
+const zoomLevels = [100, 110, 125, 150];
+let zoomIdx = zoomLevels.indexOf(zoomLevel);
+if (zoomIdx === -1) zoomIdx = 0;
+
+function applyZoom() {
+  body.className = 'zoom-' + zoomLevel;
+  document.getElementById('zoomLevel').textContent = zoomLevel + '%';
+  localStorage.setItem('ebook-zoom', zoomLevel);
+  document.querySelectorAll('.zoom-popup button').forEach(b => {
+    b.classList.toggle('active', parseInt(b.dataset.z) === zoomLevel);
+  });
+}
+
+function zoomIn() {
+  if (zoomIdx < zoomLevels.length - 1) { zoomIdx++; zoomLevel = zoomLevels[zoomIdx]; applyZoom(); }
+}
+
+function zoomOut() {
+  if (zoomIdx > 0) { zoomIdx--; zoomLevel = zoomLevels[zoomIdx]; applyZoom(); }
+}
+
+function setZoom(v) {
+  zoomLevel = v;
+  zoomIdx = zoomLevels.indexOf(v);
+  applyZoom();
+  document.getElementById('zoomPopup').classList.remove('active');
+}
+
+function toggleZoomPopup() {
+  document.getElementById('zoomPopup').classList.toggle('active');
+}
+
+applyZoom();
+
+// Close zoom popup on outside click
+document.addEventListener('click', e => {
+  if (!e.target.closest('#zoomPopup') && !e.target.closest('#zoomLevel')) {
+    document.getElementById('zoomPopup').classList.remove('active');
+  }
+});
+
+// ===== SIDEBAR =====
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('active');
+  document.getElementById('sidebarOverlay').classList.toggle('active');
+}
+
+// ===== SCROLL =====
+const main = document.getElementById('mainContent');
+
+function goTo(idx, el) {
+  const sec = document.getElementById('sec' + idx);
+  if (sec) {
+    sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.toc-item').forEach(i => i.classList.remove('active'));
+    el.classList.add('active');
+    // Close sidebar on mobile
+    if (window.innerWidth <= 768) {
+      toggleSidebar();
+    }
+  }
+}
+
+function scrollToTop() {
+  main.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Scroll button visibility
+main.addEventListener('scroll', () => {
+  const btn = document.getElementById('scrollTopBtn');
+  if (main.scrollTop > 400) {
+    btn.classList.add('visible');
+  } else {
+    btn.classList.remove('visible');
+  }
+});
+
+// ===== SEARCH =====
+function filterToc(q) {
+  const items = document.querySelectorAll('.toc-item');
+  q = q.trim().toLowerCase();
+  items.forEach(item => {
+    const label = item.querySelector('.toc-label').textContent.toLowerCase();
+    item.style.display = !q || label.includes(q) ? '' : 'none';
+  });
+}
+
+// ===== PWA / INSTALL =====
+let deferredPrompt = null;
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+});
+
+function installApp() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(choice => {
+      if (choice.outcome === 'accepted') {
+        document.getElementById('installBtn').style.display = 'none';
+      }
+      deferredPrompt = null;
+    });
+  } else {
+    // Fallback: bookmark instructions
+    alert('للتثبيت: اضغط على "إضافة إلى الشاشة الرئيسية" من قائمة المتصفح (Chrome) أو "مشاركة" ثم "إضافة إلى الشاشة الرئيسية" (Safari)');
+  }
+}
+
+// Register Service Worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+
+// ===== KEYBOARD SHORTCUTS =====
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey && e.key === '=') { e.preventDefault(); zoomIn(); }
+  if (e.ctrlKey && e.key === '-') { e.preventDefault(); zoomOut(); }
+  if (e.key === 'F11') { e.preventDefault(); toggleTheme(); }
+});
+</script>
+
+</body>
+</html>

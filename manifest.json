@@ -1,0 +1,18 @@
+{
+  "name": "الدليل الإرشادي لكتّاب القرآن الكريم الداخلي",
+  "short_name": "الدليل الإرشادي",
+  "description": "الدليل الإرشادي الشامل لكتّاب القرآن الكريم الداخلي",
+  "start_url": "ebook.html",
+  "display": "standalone",
+  "background_color": "#f8f6f0",
+  "theme_color": "#1a365d",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%231a365d' width='512' height='512' rx='100'/><text x='256' y='300' font-size='250' text-anchor='middle' fill='white'>📕</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
