@@ -260,11 +260,11 @@ body {
 }
 .toc-item .toc-label {
   color: var(--sidebar-text);
-  font-size: 15px;
+  font-size: 0.94em;
   line-height: 1.6;
 }
 .toc-item.sub { padding-right: 38px; }
-.toc-item.sub .toc-label { font-size: 14px; color: rgba(255,255,255,0.55); }
+.toc-item.sub .toc-label { font-size: 0.88em; color: rgba(255,255,255,0.55); }
 
 .sidebar-footer {
   padding: 14px 16px;
@@ -1797,8 +1797,8 @@ let tocZoomIdx = tocZoomLevels.indexOf(tocZoom);
 if (tocZoomIdx === -1) tocZoomIdx = 2;
 
 function applyTocZoom() {
-  const toc = document.getElementById('tocList');
-  toc.style.fontSize = tocZoom + '%';
+  var el = document.getElementById('tocList');
+  el.style.fontSize = tocZoom + '%';
   document.getElementById('tocZoomLevel').textContent = tocZoom + '%';
   localStorage.setItem('toc-zoom', tocZoom);
 }
