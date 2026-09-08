@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>الدليل الإرشادي لكتّاب القرآن الكريم الداخلي</title>
 <meta name="theme-color" content="#1a365d">
 <link rel="manifest" href="manifest.json">
@@ -174,6 +174,37 @@ body {
 .sidebar-header p {
   color: rgba(255,255,255,0.4);
   font-size: 11px;
+  text-align: center;
+}
+.sidebar-zoom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.sidebar-zoom-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.sidebar-zoom-btn:hover { background: rgba(255,255,255,0.25); }
+.sidebar-zoom-btn:active { transform: scale(0.95); }
+#tocZoomLevel {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  min-width: 36px;
   text-align: center;
 }
 
@@ -574,7 +605,11 @@ hr {
 <div class="sidebar" id="sidebar">
   <div class="sidebar-header">
     <h2>📖 فهرس المحتويات</h2>
-    <p>الدليل الإرشادي</p>
+    <div class="sidebar-zoom">
+      <button class="sidebar-zoom-btn" onclick="tocZoomOut()" aria-label="تصغير الفهرس">−</button>
+      <span id="tocZoomLevel">100%</span>
+      <button class="sidebar-zoom-btn" onclick="tocZoomIn()" aria-label="تكبير الفهرس">+</button>
+    </div>
   </div>
   <div class="sidebar-search">
     <input type="text" id="tocSearch" placeholder="بحث في الفهرس..." oninput="filterToc(this.value)">
@@ -1754,6 +1789,37 @@ function toggleSidebar() {
 
 // ===== SCROLL =====
 const main = document.getElementById('mainContent');
+
+// ===== SIDEBAR ZOOM =====
+let tocZoom = parseInt(localStorage.getItem('toc-zoom') || '100');
+const tocZoomLevels = [80, 90, 100, 110, 120, 130, 150];
+let tocZoomIdx = tocZoomLevels.indexOf(tocZoom);
+if (tocZoomIdx === -1) tocZoomIdx = 2;
+
+function applyTocZoom() {
+  const toc = document.getElementById('tocList');
+  toc.style.fontSize = tocZoom + '%';
+  document.getElementById('tocZoomLevel').textContent = tocZoom + '%';
+  localStorage.setItem('toc-zoom', tocZoom);
+}
+
+function tocZoomIn() {
+  if (tocZoomIdx < tocZoomLevels.length - 1) {
+    tocZoomIdx++;
+    tocZoom = tocZoomLevels[tocZoomIdx];
+    applyTocZoom();
+  }
+}
+
+function tocZoomOut() {
+  if (tocZoomIdx > 0) {
+    tocZoomIdx--;
+    tocZoom = tocZoomLevels[tocZoomIdx];
+    applyTocZoom();
+  }
+}
+
+applyTocZoom();
 
 function goTo(idx, el) {
   const sec = document.getElementById('sec' + idx);
