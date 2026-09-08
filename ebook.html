@@ -229,11 +229,11 @@ body {
 }
 .toc-item .toc-label {
   color: var(--sidebar-text);
-  font-size: 13.5px;
-  line-height: 1.5;
+  font-size: 15px;
+  line-height: 1.6;
 }
 .toc-item.sub { padding-right: 38px; }
-.toc-item.sub .toc-label { font-size: 12.5px; color: rgba(255,255,255,0.55); }
+.toc-item.sub .toc-label { font-size: 14px; color: rgba(255,255,255,0.55); }
 
 .sidebar-footer {
   padding: 14px 16px;
@@ -375,10 +375,48 @@ hr {
 }
 
 /* ===== ZOOM CLASSES ===== */
-.zoom-100 { font-size: 100%; }
-.zoom-110 { font-size: 110%; }
-.zoom-125 { font-size: 125%; }
-.zoom-150 { font-size: 150%; }
+.zoom-100 { --zoom: 1; }
+.zoom-110 { --zoom: 1.1; }
+.zoom-125 { --zoom: 1.25; }
+.zoom-150 { --zoom: 1.5; }
+
+.zoom-100, .zoom-110, .zoom-125, .zoom-150 {
+  font-size: calc(16px * var(--zoom));
+}
+
+.zoom-100 .content-wrapper,
+.zoom-110 .content-wrapper,
+.zoom-125 .content-wrapper,
+.zoom-150 .content-wrapper {
+  font-size: calc(16px * var(--zoom));
+}
+
+.zoom-100 p, .zoom-110 p, .zoom-125 p, .zoom-150 p,
+.zoom-100 li, .zoom-110 li, .zoom-125 li, .zoom-150 li,
+.zoom-100 td, .zoom-110 td, .zoom-125 td, .zoom-150 td,
+.zoom-100 th, .zoom-110 th, .zoom-125 th, .zoom-150 th {
+  font-size: calc(16px * var(--zoom));
+}
+
+.zoom-100 .section-title, .zoom-110 .section-title, .zoom-125 .section-title, .zoom-150 .section-title {
+  font-size: calc(24px * var(--zoom));
+}
+
+.zoom-100 .sub-title, .zoom-110 .sub-title, .zoom-125 .sub-title, .zoom-150 .sub-title {
+  font-size: calc(19px * var(--zoom));
+}
+
+.zoom-100 .sub-sub-title, .zoom-110 .sub-sub-title, .zoom-125 .sub-sub-title, .zoom-150 .sub-sub-title {
+  font-size: calc(17px * var(--zoom));
+}
+
+.zoom-100 .highlight-box, .zoom-110 .highlight-box, .zoom-125 .highlight-box, .zoom-150 .highlight-box {
+  font-size: calc(15px * var(--zoom));
+}
+
+.zoom-100 .basmala, .zoom-110 .basmala, .zoom-125 .basmala, .zoom-150 .basmala {
+  font-size: calc(28px * var(--zoom));
+}
 
 /* ===== FLOATING BUTTONS ===== */
 .floating-btns {
@@ -473,13 +511,38 @@ hr {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  .sidebar { width: 280px; }
+  .sidebar { width: 260px; }
   .menu-btn { display: flex !important; }
-  .toolbar-title { max-width: 180px; font-size: 13px; }
-  .content-wrapper { padding: 20px 16px 80px; }
-  .section-title { font-size: 20px; }
-  .floating-btns { left: 12px; bottom: 16px; }
-  .float-btn { width: 48px; height: 48px; font-size: 20px; border-radius: 14px; }
+  .toolbar-title { max-width: 140px; font-size: 12px; }
+  .toolbar { padding: 0 10px; height: 48px; }
+  .tb-btn { width: 34px; height: 34px; font-size: 16px; }
+  .content-wrapper { padding: 16px 12px 80px; }
+  .section-title { font-size: 18px; line-height: 1.5; }
+  .sub-title { font-size: 16px; }
+  .sub-sub-title { font-size: 14px; }
+  p, li { font-size: 14px; line-height: 1.8; }
+  .main { margin-top: 48px; height: calc(100vh - 48px); }
+  .floating-btns { left: 10px; bottom: 14px; gap: 8px; }
+  .float-btn { width: 44px; height: 44px; font-size: 18px; border-radius: 12px; }
+  .float-btn .tooltip-float { display: none; }
+  table { font-size: 11px; }
+  th, td { padding: 6px 4px; }
+  .toc-item { padding: 8px 14px; }
+  .toc-item .toc-label { font-size: 12px; }
+  .toc-item.sub { padding-right: 32px; }
+  .toc-item.sub .toc-label { font-size: 11px; }
+  .basmala { font-size: 22px; padding: 12px; }
+  .highlight-box { padding: 12px 14px; font-size: 13px; }
+}
+
+@media (max-width: 480px) {
+  .toolbar-title { max-width: 100px; font-size: 11px; }
+  .sidebar { width: 240px; }
+  .content-wrapper { padding: 12px 10px 80px; }
+  .section-title { font-size: 16px; }
+  p, li { font-size: 13px; }
+  table { font-size: 10px; }
+  th, td { padding: 5px 3px; }
 }
 
 /* ===== PRINT ===== */
@@ -1644,7 +1707,7 @@ function toggleTheme() {
 }
 
 function shareApp() {
-  const shareUrl = 'https://mghrbymslm705-lang.github.io/ebook/';
+  const shareUrl = 'https://mghrbymslm705-lang.github.io/ebook/ebook.html';
   const shareTitle = 'الدليل الإرشادي لكتّاب القرآن الكريم الداخلي';
   const shareText = 'الدليل الإرشادي الشامل لكتّاب القرآن الكريم الداخلي';
   
