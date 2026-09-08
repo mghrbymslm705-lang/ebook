@@ -1644,18 +1644,14 @@ function toggleTheme() {
 }
 
 function shareApp() {
-  const shareUrl = window.location.href;
+  const shareUrl = 'https://mghrbymslm705-lang.github.io/ebook/';
   const shareTitle = 'الدليل الإرشادي لكتّاب القرآن الكريم الداخلي';
   const shareText = 'الدليل الإرشادي الشامل لكتّاب القرآن الكريم الداخلي';
   
-  if (shareUrl.startsWith('http')) {
-    if (navigator.share) {
-      navigator.share({ title: shareTitle, text: shareText, url: shareUrl }).catch(() => {});
-    } else {
-      copyToClipboard(shareUrl);
-    }
+  if (navigator.share) {
+    navigator.share({ title: shareTitle, text: shareText, url: shareUrl }).catch(() => {});
   } else {
-    copyToClipboard(shareTitle + '\n' + shareText);
+    copyToClipboard(shareUrl);
   }
 }
 
